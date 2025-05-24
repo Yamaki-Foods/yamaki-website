@@ -105,8 +105,9 @@ html {
 .products {
   background-color: #fdfdfb;
   text-align: center;
-  padding: 4em 2em;
+  padding: 4em 2em 2em 2em; /* reduced bottom padding */
 }
+
 
 .products h2 {
   font-size: 2em;
@@ -204,7 +205,7 @@ html {
 }
 .recipe {
   background-color: #fdfdfb;
-  padding: 4em 2em;
+  padding: 2em 2em 4em 2em;
   text-align: center;
 }
 
@@ -250,7 +251,7 @@ html {
 /* BENEFITS */
 .benefits {
   background-color: #f6f6f0;
-  padding: 4em 2em;
+  padding: 4em 2em 2em 2em; /* reduced bottom padding */
   text-align: center;
   font-family: 'Segoe UI', sans-serif;
 }
@@ -300,7 +301,7 @@ html {
 /* PARTNER */
 .partner {
   background-color: #f4f4ec;
-  padding: 4em 2em;
+  padding: 2em 2em 4em 2em;
   text-align: center;
 }
 
