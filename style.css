@@ -5,6 +5,7 @@ body {
   color: #333;
 }
 
+/* NAVIGATION BAR */
 .navbar {
   background-color: #556B2F;
   color: white;
@@ -22,6 +23,8 @@ body {
   list-style: none;
   display: flex;
   gap: 1em;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-links a {
@@ -29,14 +32,18 @@ body {
   text-decoration: none;
 }
 
+/* HERO SECTION */
 .hero {
-  height: 80vh;
   background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url("images/hero.jpg");
   background-size: cover;
-  background-position: center;
-  margin-top: 1px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 80vh;
+  min-height: 320px;
 }
 
+/* ABOUT */
 .about {
   display: flex;
   justify-content: space-between;
@@ -65,6 +72,7 @@ body {
   border-radius: 8px;
 }
 
+/* PRODUCTS */
 .products {
   background-color: #fdfdfb;
   text-align: center;
@@ -110,6 +118,45 @@ body {
   color: #333;
 }
 
+.recipe {
+  background-color: #fdfdfb;
+  padding: 4em 2em;
+  text-align: center;
+}
+
+.recipe h2 {
+  font-size: 2em;
+  margin-bottom: 0.5em;
+}
+
+.recipe p {
+  max-width: 700px;
+  margin: 0 auto 2em;
+  font-size: 1em;
+  color: #555;
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  margin: 0 auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* BENEFITS */
 .benefits {
   background-color: #f6f6f0;
   padding: 3em 5em;
@@ -130,6 +177,7 @@ body {
   color: #333;
 }
 
+/* PARTNER */
 .partner {
   background-color: #f4f4ec;
   padding: 4em 2em;
@@ -157,11 +205,76 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
   padding: 0.5em;
-  min-height: 600px; /* Optional: remove or reduce if too tall */
+  min-height: 600px;
+}
+
+.faq {
+  background-color: #fdfdfb;
+  padding: 4em 2em;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq h2 {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 1em;
+}
+
+.faq-item {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 1em;
+}
+
+.faq-item input[type="checkbox"] {
+  display: none;
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 1.1em;
+  padding: 1em;
+  background-color: #f4f4ec;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.3s;
+  position: relative;
+}
+
+.faq-question::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 0.5em;
+  transition: transform 0.3s ease;
+}
+
+/* Rotate arrow when open */
+.faq-item input[type="checkbox"]:checked + .faq-question::before {
+  transform: rotate(90deg);
+}
+
+.faq-question:hover {
+  background-color: #e6e6d9;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding: 0 1em;
+  color: #555;
+  font-size: 0.95em;
+}
+
+.faq-item input[type="checkbox"]:checked ~ .faq-answer {
+  max-height: 200px;
+  padding: 1em;
 }
 
 
-
+/* FOOTER */
 footer {
   text-align: center;
   padding: 2em;
@@ -184,6 +297,138 @@ footer a:hover {
   text-decoration: underline;
 }
 
+/* HIDE UNUSED CONTACT SECTION */
 .contact {
   display: none;
+}
+
+/* HAMBURGER MENU */
+.nav-toggle {
+  display: none;
+}
+
+.nav-toggle-label {
+  display: none;
+  cursor: pointer;
+  width: 30px;
+  height: 25px;
+  position: absolute;
+  right: 1em;
+  top: 1.2em;
+}
+
+.nav-toggle-label span,
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+  display: block;
+  background: white;
+  height: 3px;
+  width: 100%;
+  border-radius: 2px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+  content: '';
+  position: absolute;
+}
+
+.nav-toggle-label span::before {
+  top: -8px;
+}
+
+.nav-toggle-label span::after {
+  top: 8px;
+}
+
+/* RESPONSIVE LAYOUT */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: row;
+    position: relative;
+  }
+
+  .nav-toggle-label {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background-color: #556B2F;
+    width: 100%;
+    text-align: center;
+    padding: 1em 0;
+  }
+
+  .nav-links li {
+    margin: 0.5em 0;
+  }
+
+  .nav-toggle:checked + .nav-toggle-label + .nav-links {
+    display: flex;
+  }
+
+  .hero {
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: auto;
+    min-height: 360px;
+  }
+
+  .about {
+    flex-direction: column;
+    text-align: center;
+    padding: 3em 1.5em;
+  }
+
+  .about-text {
+    padding-right: 0;
+  }
+
+  .about-image img {
+    max-width: 100%;
+    margin-top: 2em;
+  }
+
+  .products {
+    padding: 3em 1.5em;
+  }
+
+  .product-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .product-card {
+    width: 90%;
+  }
+
+  .benefits {
+    padding: 3em 1.5em;
+    text-align: center;
+  }
+
+  .benefits p {
+    font-size: 1.1em;
+    line-height: 1.6;
+  }
+
+  .partner {
+    padding: 3em 1.5em;
+  }
+
+  .form-wrapper {
+    width: 95%;
+  }
+
+  footer {
+    padding: 2em 1em;
+  }
+
+  footer p {
+    font-size: 0.9em;
+  }
 }

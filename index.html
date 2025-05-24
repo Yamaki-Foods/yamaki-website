@@ -18,16 +18,25 @@
 </head>
 <body>
   <!-- Top Menu -->
-  <nav class="navbar">
-    <div class="logo">Yamaki Foods</div>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#products">Products</a></li>
-      <li><a href="#benefits">Why Us</a></li>
-      <li><a href="#partner">Partner</a></li>
-      <li><a href="#footer">Contact</a></li>
-    </ul>
-  </nav>
+<nav class="navbar">
+  <div class="logo">Yamaki Foods</div>
+
+  <!-- Hamburger Toggle -->
+  <input type="checkbox" id="nav-toggle" class="nav-toggle">
+  <label for="nav-toggle" class="nav-toggle-label">
+    <span></span>
+  </label>
+
+  <!-- Navigation Links -->
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#benefits">Why Us</a></li>
+    <li><a href="#partner">Partner</a></li>
+    <li><a href="#footer">Contact</a></li>
+  </ul>
+</nav>
+
 
   <section class="hero"></section>
 
@@ -58,6 +67,23 @@
     </div>
   </section>
 
+<!-- Recipe Video Section -->
+<section class="recipe">
+  <h2>Watch Shirataki in Action</h2>
+  <p>See how to cook a delicious Shirataki recipe using Yamaki's premium noodles. Perfect for keto, diabetic-friendly, and healthy meals.</p>
+  <div class="video-wrapper">
+    <iframe 
+      width="560" 
+      height="315" 
+      src="https://www.youtube.com/embed/rmifJ0bJWXY" 
+      title="Shirataki Recipe Demo" 
+      frameborder="0" 
+      allowfullscreen>
+    </iframe>
+  </div>
+</section>
+
+
   <!-- Why Us Section -->
   <section class="benefits" id="benefits">
     <h2>Why Choose Yamaki</h2>
@@ -77,6 +103,42 @@
 </iframe>
 
 </section>
+
+<section class="faq" id="faq">
+  <h2>Frequently Asked Questions</h2>
+
+  <div class="faq-item">
+    <input type="checkbox" id="faq1">
+   <label for="faq1" class="faq-question">What is Shirataki made from?</label>
+
+    <div class="faq-answer">Shirataki is made from konjac root, a low-carb, high-fiber tuber native to Asia.</div>
+  </div>
+
+  <div class="faq-item">
+    <input type="checkbox" id="faq2">
+    <label for="faq2" class="faq-question">Is it suitable for diabetics?</label>
+    <div class="faq-answer">Yes! Shirataki has near-zero carbs and is great for blood sugar management.</div>
+  </div>
+
+  <div class="faq-item">
+    <input type="checkbox" id="faq3">
+    <label for="faq3" class="faq-question">Can I white-label Yamaki products?</label>
+    <div class="faq-answer">Absolutely. We offer B2B and white-labelling options with MOQ as low as 100kg/month.</div>
+  </div>
+
+  <div class="faq-item">
+    <input type="checkbox" id="faq4">
+    <label for="faq4" class="faq-question">What is the shelf life?</label>
+    <div class="faq-answer">Our shirataki products have a 6–12 month shelf life when stored in a cool, dry place.</div>
+  </div>
+
+  <div class="faq-item">
+    <input type="checkbox" id="faq5">
+    <label for="faq5" class="faq-question">Do you ship pan-India?</label>
+    <div class="faq-answer">Yes, we deliver B2B and bulk orders across India via our logistics partners.</div>
+  </div>
+</section>
+
 
 
   <!-- Footer -->
