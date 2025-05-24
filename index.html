@@ -17,58 +17,54 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Top Menu -->
+
+<!-- Top Menu -->
 <nav class="navbar">
   <div class="logo">Yamaki Foods</div>
-
-  <!-- Hamburger Toggle -->
   <input type="checkbox" id="nav-toggle" class="nav-toggle">
-  <label for="nav-toggle" class="nav-toggle-label">
-    <span></span>
-  </label>
-
-  <!-- Navigation Links -->
+  <label for="nav-toggle" class="nav-toggle-label"><span></span></label>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#products">Products</a></li>
+    <li><a href="#recipe">Watch</a></li>
     <li><a href="#benefits">Why Us</a></li>
     <li><a href="#partner">Partner</a></li>
     <li><a href="#footer">Contact</a></li>
   </ul>
 </nav>
 
+<!-- Hero Section -->
+<section class="hero"></section>
 
-  <section class="hero"></section>
+<!-- About Us Section -->
+<section class="about" id="about">
+  <div class="about-text">
+    <h2>About Yamaki</h2>
+    <p>Yamaki Foods brings the authentic taste of health to your table with Shirataki rice and noodles — a traditional Japanese superfood loved for its low calories and high fiber content. Made from the konjac plant, our products are perfect for modern diets including keto, diabetic-friendly, and gluten-free lifestyles.</p>
+    <p>We are inspired by the simplicity and elegance of Japanese cuisine and culture. Our mission is to bring healthy, clean-label products into every Indian kitchen, offering both taste and nutrition without compromise.</p>
+  </div>
+  <div class="about-image">
+    <img src="images/about.jpg" alt="About Yamaki Foods - Konjac Based Healthy Products">
+  </div>
+</section>
 
-  <!-- About Section -->
-  <section class="about" id="about">
-    <div class="about-text">
-      <h2>About Yamaki</h2>
-      <p>Yamaki Foods brings the authentic taste of health to your table with Shirataki rice and noodles — a traditional Japanese superfood loved for its low calories and high fiber content. Made from the konjac plant, our products are perfect for modern diets including keto, diabetic-friendly, and gluten-free lifestyles.</p>
-      <p>We are inspired by the simplicity and elegance of Japanese cuisine and culture. Our mission is to bring healthy, clean-label products into every Indian kitchen, offering both taste and nutrition without compromise.</p>
+<!-- Products Section -->
+<section class="products" id="products">
+  <h2>Our Products</h2>
+  <div class="product-grid">
+    <div class="product-card">
+      <img src="images/shirataki-rice.jpg" alt="Yamaki Shirataki Rice">
+      <p>Shirataki Rice – light, fluffy and perfect for guilt-free meals.</p>
     </div>
-    <div class="about-image">
-      <img src="images/about.jpg" alt="About Yamaki Foods - Konjac Based Healthy Products">
+    <div class="product-card">
+      <img src="images/shirataki-noodles.jpg" alt="Yamaki Shirataki Noodles">
+      <p>Shirataki Noodles – delicious and low-carb, ideal for keto and diabetic diets.</p>
     </div>
-  </section>
-
-  <!-- Products Section -->
-  <section class="products" id="products">
-    <h2>Our Products</h2>
-    <div class="product-grid">
-      <div class="product-card">
-        <img src="images/shirataki-rice.jpg" alt="Yamaki Shirataki Rice">
-        <p>Shirataki Rice – light, fluffy and perfect for guilt-free meals.</p>
-      </div>
-      <div class="product-card">
-        <img src="images/shirataki-noodles.jpg" alt="Yamaki Shirataki Noodles">
-        <p>Shirataki Noodles – delicious and low-carb, ideal for keto and diabetic diets.</p>
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
 
 <!-- Recipe Video Section -->
-<section class="recipe">
+<section class="recipe" id="recipe">
   <h2>Watch Shirataki in Action</h2>
   <p>See how to cook a delicious Shirataki recipe using Yamaki's premium noodles. Perfect for keto, diabetic-friendly, and healthy meals.</p>
   <div class="video-wrapper">
@@ -83,34 +79,33 @@
   </div>
 </section>
 
+<!-- Why Us Section -->
+<section class="benefits" id="benefits">
+  <h2>Why Choose Yamaki</h2>
+  <p>Yamaki products are 100% plant-based, contain zero sugar, and support a keto and diabetic-friendly lifestyle. We provide white labelling and export services while being deeply rooted in traditional Japanese nutrition philosophies. This makes our offerings ideal for health-conscious brands and retailers looking for quality, low-calorie alternatives.</p>
+</section>
 
-  <!-- Why Us Section -->
-  <section class="benefits" id="benefits">
-    <h2>Why Choose Yamaki</h2>
-    <p>Yamaki products are 100% plant-based, contain zero sugar, and support a keto and diabetic-friendly lifestyle. We provide white labelling and export services while being deeply rooted in traditional Japanese nutrition philosophies. This makes our offerings ideal for health-conscious brands and retailers looking for quality, low-calorie alternatives.</p>
-  </section>
-
-  <!-- Partner With Us Section -->
+<!-- Partner With Us Section -->
 <section class="partner" id="partner">
   <h2>Partner With Us</h2>
   <p>Yamaki Foods offers services tailored for businesses — whether you're looking to resell, white-label, or bulk-import Shirataki products. We work with health brands, diet clinics, retailers, and exporters who want to bring premium quality to their customers.</p>
   <p>Fill in the form below to start a conversation with us. We usually respond within 24 hours.</p>
 
   <div class="form-wrapper">
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSddEF2JiPZ6FXTOEojg6ElfSOlpYSnxfE_PAW3u-5l3TFFtHw/viewform?embedded=true" 
-        width="100%" height="550" frameborder="0" style="border: none;">
-  Loading…
-</iframe>
-
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSddEF2JiPZ6FXTOEojg6ElfSOlpYSnxfE_PAW3u-5l3TFFtHw/viewform?embedded=true" 
+            width="100%" height="550" frameborder="0" style="border: none;">
+      Loading…
+    </iframe>
+  </div>
 </section>
 
+<!-- FAQ Section -->
 <section class="faq" id="faq">
   <h2>Frequently Asked Questions</h2>
 
   <div class="faq-item">
     <input type="checkbox" id="faq1">
-   <label for="faq1" class="faq-question">What is Shirataki made from?</label>
-
+    <label for="faq1" class="faq-question">What is Shirataki made from?</label>
     <div class="faq-answer">Shirataki is made from konjac root, a low-carb, high-fiber tuber native to Asia.</div>
   </div>
 
@@ -139,12 +134,11 @@
   </div>
 </section>
 
+<!-- Footer -->
+<footer id="footer">
+  <p>&copy; 2025 Yamaki Foods. All rights reserved.</p>
+  <p>Email: <a href="mailto:hello@yamakifoods.com">hello@yamakifoods.com</a> | Phone: <a href="tel:+919876543210">+91-9876543210</a> | New Delhi, India</p>
+</footer>
 
-
-  <!-- Footer -->
-  <footer id="footer">
-    <p>&copy; 2025 Yamaki Foods. All rights reserved.</p>
-    <p>Email: <a href="mailto:hello@yamakifoods.com">hello@yamakifoods.com</a> | Phone: <a href="tel:+919876543210">+91-9876543210</a> | New Delhi, India</p>
-  </footer>
 </body>
 </html>
