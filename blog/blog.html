@@ -7,7 +7,6 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-M32NVJ9V1T');
 </script>
   <meta charset="UTF-8" />
@@ -38,9 +37,8 @@
   <!-- CSS -->
   <link rel="stylesheet" href="../style.css" />
   <link rel="stylesheet" href="blog.css" />
-<link rel="icon" type="image/jpeg" href="images/favicon.jpg">
-<link rel="shortcut icon" href="images/favicon.jpg" type="image/jpeg">
-
+  <link rel="icon" type="image/jpeg" href="images/favicon.jpg">
+  <link rel="shortcut icon" href="images/favicon.jpg" type="image/jpeg">
 </head>
 
 <body>
@@ -68,26 +66,59 @@
     <h1>Yamaki Blog</h1>
     <p>Insights on Shirataki, clean-label health food, white-label branding, and pan-India supply strategy.</p>
 
-    <div class="blog-grid">
-      <article class="blog-post">
-        <h3><a href="shirataki-benefits/index.html">🥬 What is Shirataki? Benefits & Daily Uses</a></h3>
-        <p>Learn why Shirataki is gaining global popularity in low-carb, diabetic-friendly, and clean-label diets.</p>
-      </article>
+    <section>
+      <h2>📰 General Blogs</h2>
+      <div class="blog-grid" id="general-blogs"></div>
+    </section>
 
-      <article class="blog-post">
-        <h3><a href="white-labeling-guide/index.html">🏷️ White-Labeling Health Foods in India</a></h3>
-        <p>A complete guide for retailers and distributors interested in launching their own private-label brand.</p>
-      </article>
-
-      <article class="blog-post">
-        <h3><a href="shipping-logistics/index.html">🚚 How We Ship Pan-India with 6-Month Shelf Life</a></h3>
-        <p>How Yamaki ensures freshness, speed, and stability in B2B shirataki shipments across India and Asia-Pacific.</p>
-      </article>
-    </div>
+    <section>
+      <h2>🍜 Recipe Blogs</h2>
+      <div class="blog-grid" id="recipe-blogs"></div>
+    </section>
   </main>
 
   <footer>
     <p>&copy; 2025 Yamaki Foods. All rights reserved.</p>
   </footer>
+
+  <script>
+    const blogPosts = [
+      {
+        category: 'general',
+        title: '🥬 What is Shirataki? Benefits & Daily Uses',
+        description: 'Learn why Shirataki is gaining global popularity in low-carb, diabetic-friendly, and clean-label diets.',
+        link: 'shirataki-benefits/index.html'
+      },
+      {
+        category: 'general',
+        title: '🏷️ White-Labeling Health Foods in India',
+        description: 'A complete guide for retailers and distributors interested in launching their own private-label brand.',
+        link: 'white-labeling-guide/index.html'
+      },
+      {
+        category: 'general',
+        title: '🚚 How We Ship Pan-India with 6-Month Shelf Life',
+        description: 'How Yamaki ensures freshness, speed, and stability in B2B shirataki shipments across India and Asia-Pacific.',
+        link: 'shipping-logistics/index.html'
+      },
+      {
+        category: 'recipe',
+        title: '🍜 Shirataki Noodle Stir-Fry',
+        description: 'A quick and healthy recipe featuring Yamaki Shirataki noodles with fresh vegetables.',
+        link: 'recipes/stir-fry.html'
+      }
+    ];
+
+    blogPosts.forEach(post => {
+      const container = document.getElementById(`${post.category}-blogs`);
+      const article = document.createElement('article');
+      article.className = 'blog-post';
+      article.innerHTML = `
+        <h3><a href="${post.link}">${post.title}</a></h3>
+        <p>${post.description}</p>
+      `;
+      container.appendChild(article);
+    });
+  </script>
 </body>
 </html>
