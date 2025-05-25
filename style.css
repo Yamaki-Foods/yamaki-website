@@ -109,6 +109,59 @@ html {
   border-radius: 8px;
 }
 
+.about-shirataki {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch; /* Match heights */
+  padding: 4em 2em;
+  background-color: #fdfdfb;
+  gap: 2em;
+}
+
+.shirataki-image {
+  flex: 1;
+}
+
+.shirataki-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.shirataki-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.shirataki-text {
+  flex: 1;
+}
+
+.shirataki-text h2 {
+  font-size: 2em;
+  border-bottom: 3px solid #556B2F;
+  display: inline-block;
+  padding-bottom: 0.2em;
+  margin-bottom: 1em;
+}
+
+.shirataki-text p {
+  font-size: 1.1em;
+  color: #444;
+  line-height: 1.7;
+  margin-bottom: 1em;
+}
+
+  .shirataki-image img {
+    max-width: 100%;
+    margin-bottom: 2em;
+  }
+}
+
+
 /* PRODUCTS */
 .products {
   background-color: #fdfdfb;
@@ -490,6 +543,30 @@ footer a:hover {
   .about-image img {
     max-width: 100%;
     margin-top: 2em;
+  }
+
+  .about-shirataki {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 3em 1.5em;
+    gap: 2em;
+  }
+
+  .shirataki-image {
+    width: 100%;
+  }
+
+  .shirataki-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 1em;
+  }
+
+  .shirataki-text {
+    width: 100%;
+    padding: 0;
   }
 
   .products {
