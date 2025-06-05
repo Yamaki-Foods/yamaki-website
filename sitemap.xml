@@ -31,4 +31,11 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- 🍋 New Blog: Lemon Shirataki Rice -->
+  <url>
+    <loc>https://www.yamakifoods.com/blog/recipes/lemon-rice.html</loc>
+    <lastmod>2025-06-06</lastmod>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
