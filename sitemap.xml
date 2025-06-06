@@ -1,41 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
   <url>
     <loc>https://yamakifoods.com/</loc>
     <lastmod>2025-05-25</lastmod>
     <priority>1.0</priority>
   </url>
-
   <url>
     <loc>https://yamakifoods.com/blog.html</loc>
     <lastmod>2025-05-25</lastmod>
     <priority>0.9</priority>
   </url>
-
   <url>
     <loc>https://yamakifoods.com/blog/shirataki-benefits/index.html</loc>
     <lastmod>2025-05-25</lastmod>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://yamakifoods.com/blog/white-labeling-guide/index.html</loc>
     <lastmod>2025-05-25</lastmod>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://yamakifoods.com/blog/shipping-logistics/index.html</loc>
     <lastmod>2025-05-25</lastmod>
     <priority>0.8</priority>
   </url>
-
   <!-- 🍋 New Blog: Lemon Shirataki Rice -->
   <url>
-    <loc>https://www.yamakifoods.com/blog/recipes/lemon-rice.html</loc>
+    <loc>https://yamakifoods.com/blog/recipes/lemon-rice.html</loc>
     <lastmod>2025-06-06</lastmod>
     <priority>0.8</priority>
   </url>
-
+  <!-- 🍛 New Blog: Konjac Rice Biryani -->
+  <url>
+    <loc>https://yamakifoods.com/blog/recipes/konjac-rice-biryani.html</loc>
+    <lastmod>2025-06-07</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <!-- 📃 Privacy Policy -->
+  <url>
+    <loc>https://yamakifoods.com/privacy-policy.html</loc>
+    <lastmod>2025-06-07</lastmod>
+    <priority>0.4</priority>
+  </url>
+  <!-- 📄 Terms & Conditions -->
+  <url>
+    <loc>https://yamakifoods.com/terms-and-conditions.html</loc>
+    <lastmod>2025-06-07</lastmod>
+    <priority>0.4</priority>
+  </url>
 </urlset>
