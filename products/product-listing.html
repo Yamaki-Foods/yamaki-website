@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Explore Yamaki Foods' premium range of Konjac-based products including drinkable powders, noodles, pasta, ramen, rice, and more." />
+  <meta name="keywords" content="Konjac, Shirataki, Low Calorie Foods, Healthy Foods, Konjac Powder, Konjac Noodles, Konjac Rice, Konjac Ramen, Yamaki Foods" />
+  <meta name="author" content="Yamaki Foods" />
+  <link rel="icon" type="image/jpeg" href="../images/favicon.jpg" />
+  <link rel="canonical" href="https://yamakifoods.com/products.html" />
+  <title>Our Konjac Products | Yamaki Foods</title>
+  <link rel="stylesheet" href="product-listing.css" />
+  <style>
+    .image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .image-wrapper img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .hover-image {
+      opacity: 0;
+      z-index: 1;
+    }
+
+    .main-image {
+      opacity: 1;
+      z-index: 2;
+    }
+
+    .product-card:hover .hover-image {
+      opacity: 1;
+    }
+
+    .product-card:hover .main-image {
+      opacity: 0;
+    }
+  </style>
+
+  <!-- Product Schema (sample) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Shirataki / Konjac Rice",
+    "image": "https://yamakifoods.com/images/konjac-rice-1.jpg",
+    "description": "Low calorie shirataki rice made from konjac flour, gluten-free and diabetic-friendly.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Yamaki Foods"
+    }
+  }
+  </script>
+</head>
+<body>
+<nav class="navbar">
+  <div class="logo">
+    <a href="../index.html" style="color: white; text-decoration: none;">Yamaki Foods</a>
+  </div>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle">
+  <label for="nav-toggle" class="nav-toggle-label"><span></span></label>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="product-listing.html">Products</a></li>
+    <li><a href="../blog/blog.html">Blog</a></li>
+  </ul>
+</nav>
+
+
+<main>
+  <section class="products">
+    <h2>Explore Our Low-Calorie Konjac Product Range</h2>
+    <div class="sort-bar">
+      <label for="sort">Sort by: </label>
+      <select id="sort">
+        <option value="default">Default</option>
+        <option value="name">Name</option>
+      </select>
+    </div>
+    <div class="products-layout">
+      <aside class="filter-panel">
+        <h3>Filters</h3>
+        <strong>Type:</strong><br>
+        <label><input type="checkbox" name="type" value="rice"> Rice</label>
+        <label><input type="checkbox" name="type" value="jelly"> Jelly</label>
+        <label><input type="checkbox" name="type" value="noodle"> Noodles</label>
+        <label><input type="checkbox" name="type" value="pasta"> Pasta</label>
+        <br><br>
+        <strong>Veg Type:</strong><br>
+        <label><input type="checkbox" name="veg" value="veg"> Veg</label>
+        <label><input type="checkbox" name="veg" value="nonveg"> Non-Veg</label>
+      </aside>
+      <div class="product-grid">
+        <a class="product-card" href="../product-page/spaghetti.html" data-type="pasta" data-veg="veg" aria-label="View Instant Konjac Spaghetti product page">
+          <div class="image-wrapper">
+            <img loading="lazy" src="images/spaghetti-1.jpg" class="main-image" alt="Instant Konjac Spaghetti - Low Calorie Yamaki Product" />
+            <img loading="lazy" src="images/spaghetti-2.jpg" class="hover-image" alt="Konjac Spaghetti Alternate View" />
+          </div>
+          <p>Instant Konjac Spaghetti</p>
+        </a>
+        <a class="product-card" href="../product-page/konjac-rice.html" data-type="rice" data-veg="veg" aria-label="View Konjac Rice product page">
+          <div class="image-wrapper">
+            <img loading="lazy" src="images/konjac-rice-1.jpg" class="main-image" alt="Shirataki / Konjac Rice - Low Calorie Alternative" />
+            <img loading="lazy" src="images/konjac-rice-2.jpg" class="hover-image" alt="Konjac Rice Side View" />
+          </div>
+          <p>Shirataki / Konjac Rice</p>
+        </a>
+        <a class="product-card" href="../product-page/konjac-noodles.html" data-type="noodle" data-veg="veg" aria-label="View Konjac Noodles product page">
+          <div class="image-wrapper">
+            <img loading="lazy" src="images/konjac-noodle-1.jpg" class="main-image" alt="Shirataki / Konjac Noodles - Healthy & Gluten-Free" />
+            <img loading="lazy" src="images/konjac-noodle-2.jpg" class="hover-image" alt="Konjac Noodles Hover View" />
+          </div>
+          <p>Shirataki / Konjac Noodles</p>
+        </a>
+        <a class="product-card" href="../product-page/fettuccine.html" data-type="pasta" data-veg="veg" aria-label="View Instant Konjac Fettuccine product page">
+          <div class="image-wrapper">
+            <img loading="lazy" src="images/fettuccine-1.jpg" class="main-image" alt="Instant Konjac Fettuccine - Plant Based Low Carb Pasta" />
+            <img loading="lazy" src="images/fettuccine-2.jpg" class="hover-image" alt="Fettuccine Pasta Hover Image" />
+          </div>
+          <p>Instant Konjac Fettuccine</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="footer">
+  <p>&copy; 2025 Yamaki Foods. All rights reserved.</p>
+  <p>
+    Email: <a href="mailto:info@yamakifoods.com">info@yamakifoods.com</a> |
+    Phone: <a href="tel:+919717912200">+91-9717912200</a> |
+    New Delhi, India
+  </p>
+  <p>
+    <a href="/privacy-policy.html">Privacy Policy</a> |
+    <a href="/terms-and-conditions.html">Terms & Conditions</a>
+  </p>
+</footer>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const checkboxes = document.querySelectorAll('.filter-panel input[type="checkbox"]');
+    const sortSelect = document.getElementById("sort");
+    const cards = document.querySelectorAll(".product-card");
+
+    function filterAndSort() {
+      const activeTypeFilters = Array.from(document.querySelectorAll('input[name="type"]:checked')).map(cb => cb.value);
+      const activeVegFilters = Array.from(document.querySelectorAll('input[name="veg"]:checked')).map(cb => cb.value);
+
+      cards.forEach(card => {
+        const type = card.dataset.type || "";
+        const veg = card.dataset.veg || "";
+
+        const matchesType = activeTypeFilters.length === 0 || activeTypeFilters.some(filter => type.includes(filter));
+        const matchesVeg = activeVegFilters.length === 0 || activeVegFilters.includes(veg);
+
+        card.style.display = matchesType && matchesVeg ? "block" : "none";
+      });
+
+      const sortValue = sortSelect.value;
+      if (sortValue === "name") {
+        const grid = document.querySelector(".product-grid");
+        const visibleCards = Array.from(grid.children).filter(card => card.style.display !== "none");
+        visibleCards.sort((a, b) => {
+          const nameA = a.querySelector("p").textContent.toLowerCase();
+          const nameB = b.querySelector("p").textContent.toLowerCase();
+          return nameA.localeCompare(nameB);
+        });
+        visibleCards.forEach(card => grid.appendChild(card));
+      }
+    }
+
+    checkboxes.forEach(cb => cb.addEventListener("change", filterAndSort));
+    sortSelect.addEventListener("change", filterAndSort);
+  });
+</script>
+
+</body>
+</html>

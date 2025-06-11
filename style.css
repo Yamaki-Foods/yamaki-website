@@ -136,10 +136,6 @@ html {
   justify-content: center;
 }
 
-.shirataki-text {
-  flex: 1;
-}
-
 .shirataki-text h2 {
   font-size: 2em;
   border-bottom: 3px solid #556B2F;
@@ -451,7 +447,6 @@ html {
 
 /* PARTNER */
 .partner {
-  background-color: #f4f4ec;
   padding: 2em 2em 4em 2em;
   text-align: center;
 }
@@ -469,16 +464,6 @@ html {
   line-height: 1.6;
 }
 
-.form-wrapper {
-  max-width: 800px;
-  margin: 2em auto;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
-  padding: 0.5em;
-  min-height: 600px;
-}
 
 /* FAQ SECTION */
 .faq {
@@ -718,4 +703,27 @@ footer a:hover {
   footer p {
     font-size: 0.9em;
   }
+
+
 }
+.product-card a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.product-card p {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1em;
+}
+a {
+  color: #2e7d32; /* Yamaki green */
+  text-decoration: none;
+}
+
+a:hover {
+  color: #4caf50; /* Brighter green on hover */
+  text-decoration: underline;
+}
+
