@@ -10,6 +10,14 @@ html {
   scroll-behavior: smooth;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+}
+
+
 /* NAVBAR */
 .navbar {
   background-color: #556B2F;
@@ -660,10 +668,12 @@ footer a:hover {
     margin-bottom: 1em;
   }
 
-  .shirataki-text {
-    width: 100%;
-    padding: 0;
-  }
+.shirataki-text {
+  width: 100%;
+  padding: 0;
+  text-align: center;
+  align-items: center;
+}
 
   .products {
     padding: 3em 1.5em;

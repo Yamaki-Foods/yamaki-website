@@ -11,6 +11,12 @@ html, body {
   flex-direction: column;
 }
 
+.container {
+  width: 90%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
 main {
   flex: 1;
 }
@@ -303,3 +309,47 @@ main {
 #footer a:hover {
   color: #ffcc00;
 }
+@media (max-width: 768px) {
+  .products-layout {
+    flex-direction: column;
+  }
+
+  .filter-panel {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 2em;
+  }
+
+  .product-grid {
+    justify-content: center;
+  }
+
+  .sort-bar {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card {
+    width: 100%;
+  }
+
+  .products h2 {
+    font-size: 1.5em;
+  }
+
+  .product-card p {
+    font-size: 0.95em;
+  }
+
+  .cta-button {
+    font-size: 0.9em;
+    padding: 0.5em 1em;
+  }
+
+  #footer {
+    font-size: 0.85em;
+    padding: 2em 0.5em;
+  }
+}
+
