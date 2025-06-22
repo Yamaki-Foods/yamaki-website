@@ -284,6 +284,34 @@ body::before {
   </div>
 </section>
 
+<section class="services" id="services">
+  <h2>Our Services</h2>
+  <p class="services-intro">
+    Yamaki Foods is your trusted partner for Shirataki products in India — from bulk supplies to private labelling and eCommerce setup. We support health-focused brands, retailers, and entrepreneurs with everything they need to grow.
+  </p>
+  
+  <div class="service-grid">
+    <div class="service-card">
+      <h3>🥗 Shirataki Product Supply</h3>
+      <p>We supply high-quality Shirataki rice, noodles, spaghetti, fettuccine and more — available in retail, bulk, and foodservice packaging.</p>
+    </div>
+    
+    <div class="service-card">
+      <h3>🏷️ White-Label Solutions</h3>
+      <p>Launch your own health food brand with our white-label or private-label service.</p>
+    </div>
+    
+    <div class="service-card">
+      <h3>🛒 eCommerce Launch Support</h3>
+      <p>We assist you in listing Shirataki products on Amazon, Flipkart, Blinkit, Zepto, and other platforms with proper packaging, barcodes, and onboarding help.</p>
+    </div>
+  </div>
+
+  <p class="services-keywords">
+    <strong>Keywords:</strong> Best Shirataki supplier in India, white-label konjac noodles, diabetic rice, keto food distributor India, konjac product wholesale, Yamaki Foods B2B.
+  </p>
+</section>
+
 
 <section class="recipe" id="recipe">
   <h2>Watch Shirataki in Action</h2>
@@ -297,11 +325,11 @@ body::before {
   <h2>Why Partner With Yamaki</h2>
   <p>We’re more than just a supplier. Yamaki Foods is a strategic partner for brands, retailers, and startups looking to launch or scale Shirataki-based products across India and overseas.</p>
   <ul class="b2b-benefits">
-    <li>✔ Low MOQ for small businesses</li>
-    <li>✔ White-label & private label with fast turnaround</li>
-    <li>✔ Pan-India and export-ready logistics support</li>
-    <li>✔ Bulk-friendly pricing & margin protection</li>
-    <li>✔ Shelf-stable packs for online and offline sales</li>
+    <li> Low MOQ for small businesses</li>
+    <li> White-label & private label with fast turnaround</li>
+    <li> Pan-India and export-ready logistics support</li>
+    <li> Bulk-friendly pricing & margin protection</li>
+    <li> Shelf-stable packs for online and offline sales</li>
   </ul>
 </section>
 
@@ -315,7 +343,7 @@ body::before {
   <h2>Frequently Asked Questions</h2>
   <div class="faq-item"><input type="checkbox" id="faq1"><label for="faq1" class="faq-question">What is Shirataki made from?</label><div class="faq-answer">It’s made from konjac root — a low-carb, high-fiber tuber native to Asia.</div></div>
   <div class="faq-item"><input type="checkbox" id="faq2"><label for="faq2" class="faq-question">Is it suitable for diabetics?</label><div class="faq-answer">Yes! Shirataki is known for being diabetic-friendly and very low in glycemic impact.</div></div>
-  <div class="faq-item"><input type="checkbox" id="faq3"><label for="faq3" class="faq-question">Can I white-label Yamaki products?</label><div class="faq-answer">Absolutely. We offer white-label and private-label services starting from 100kg/month.</div></div>
+  <div class="faq-item"><input type="checkbox" id="faq3"><label for="faq3" class="faq-question">Can I white-label Yamaki products?</label><div class="faq-answer">Absolutely. We offer white-label and private-label services.</div></div>
   <div class="faq-item"><input type="checkbox" id="faq4"><label for="faq4" class="faq-question">What is the shelf life?</label><div class="faq-answer">Our products last 6–12 months unopened, no refrigeration needed.</div></div>
   <div class="faq-item"><input type="checkbox" id="faq5"><label for="faq5" class="faq-question">Do you deliver across India?</label><div class="faq-answer">Yes, we ship both bulk and retail orders pan-India via our trusted partners.</div></div>
 </section>
@@ -332,6 +360,19 @@ body::before {
     <a href="/terms-and-conditions.html">Terms & Conditions</a>
   </p>
 </footer>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('a[href*="wa.me"]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      gtag('event', 'whatsapp_click', {
+        event_category: 'Contact',
+        event_label: el.href,
+        value: 1
+      });
+    });
+  });
+});
+</script>
 
 
 </body>
