@@ -213,6 +213,17 @@ main {
   flex: 1;
 }
 
+.product-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.product-link:hover {
+  text-decoration: none;
+}
+
+
 .product-card {
   background: #ffffff;
   border: 1px solid #e0e0e0;
