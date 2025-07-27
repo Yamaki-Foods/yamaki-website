@@ -258,9 +258,56 @@ function triggerBuyNow() {
 
   toggleShippingForm(); // Show shipping form first
 }
-
-
 renderCart();
+  function toggleShippingForm() {
+  const form = document.getElementById("shipping-form");
+  form.classList.toggle("hidden");
+}
+function submitShippingDetails() {
+  const name = document.getElementById("ship-name").value.trim();
+  const email = document.getElementById("ship-email").value.trim();
+  const phone = document.getElementById("ship-phone").value.trim();
+  const address = document.getElementById("ship-address").value.trim();
+  const country = document.getElementById("ship-country").value.trim();
+  const state = document.getElementById("ship-state").value.trim();
+  const pincode = document.getElementById("ship-pincode").value.trim();
+
+  if (!name || !email || !phone || !address || !country || !state || !pincode) {
+    alert("Please fill out all shipping fields.");
+    return;
+  }
+
+  const amount = pendingBuyNowProduct.price * pendingBuyNowProduct.qty * 100;
+
+  const options = {
+    key: "rzp_live_wEC5gALdAnUWbA",
+    amount: amount,
+    currency: "INR",
+    name: "Yamaki Foods",
+    description: pendingBuyNowProduct.name,
+    image: "https://yamakifoods.com/images/favicon.jpg",
+    handler: function (response) {
+      alert(`Payment successful! Razorpay ID: ${response.razorpay_payment_id}`);
+      toggleShippingForm();
+    },
+    prefill: {
+      name: name,
+      email: email,
+      contact: phone
+    },
+    notes: {
+      address: `${address}, ${state}, ${country} - ${pincode}`
+    },
+    theme: { color: "#2e7d32" }
+  };
+
+  const rzp = new Razorpay(options);
+  rzp.open();
+}
+window.triggerBuyNow = triggerBuyNow;
+window.submitShippingDetails = submitShippingDetails;
+window.toggleShippingForm = toggleShippingForm;
+
 </script>
 <div id="shipping-form" class="hidden" style="padding: 1em; background: #fff; border: 1px solid #ccc; position: fixed; top: 10%; left: 50%; transform: translateX(-50%); z-index: 9999;">
   <h3>Shipping Details</h3>
