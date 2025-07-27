@@ -2,7 +2,7 @@ let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 // Add Event Listeners after DOM loads
 document.addEventListener("DOMContentLoaded", () => {
-  // Add to Cart button
+  // Add to Cart buttons
   document.querySelectorAll(".add-to-cart").forEach((btn) => {
     btn.addEventListener("click", () => {
       const card = btn.closest(".product-card");
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Buy Now button
+  // Buy Now buttons
   document.querySelectorAll(".buy-now").forEach((btn) => {
     btn.addEventListener("click", () => {
       const card = btn.closest(".product-card");
@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Initial render
   renderCart();
 });
 
@@ -48,25 +49,33 @@ function addToCart(item) {
 function renderCart() {
   const container = document.querySelector(".cart-items");
   const totalElem = document.getElementById("cart-total");
-  if (!container || !totalElem) return;
+  const countElem = document.getElementById("cart-count");
+
+  if (!container || !totalElem || !countElem) return;
 
   container.innerHTML = "";
   let total = 0;
+  let count = 0;
 
   cart.forEach((item, index) => {
     const subtotal = item.qty * item.price;
     total += subtotal;
+    count += item.qty;
 
     container.innerHTML += `
       <div style="margin-bottom: 1em;">
         <strong>${item.name}</strong><br>
         ₹${item.price} × ${item.qty} = ₹${subtotal}
-        <br><button onclick="removeItem(${index})" style="margin-top:5px;font-size:0.8em;color:#c00;">Remove</button>
+        <br>
+        <button onclick="removeItem(${index})" style="margin-top:5px;font-size:0.8em;color:#c00;">
+          Remove
+        </button>
       </div>
     `;
   });
 
   totalElem.textContent = total;
+  countElem.textContent = count;
 }
 
 function removeItem(index) {
@@ -84,8 +93,8 @@ function checkout() {
   if (totalAmount === 0) return alert("Your cart is empty.");
 
   const options = {
-    key: "rzp_live_wEC5gALdAnUWbA", // ⛳ Replace with your Razorpay key
-    amount: totalAmount * 100, // in paise
+    key: "rzp_live_wEC5gALdAnUWbA", // 🔑 Replace with your actual key
+    amount: totalAmount * 100,
     currency: "INR",
     name: "Yamaki Foods",
     description: "Order Payment",
@@ -113,7 +122,7 @@ function checkout() {
 
 function triggerRazorpay(product) {
   const options = {
-    key: "rzp_live_wEC5gALdAnUWbA", // ⛳ Replace with your Razorpay key
+    key: "rzp_live_wEC5gALdAnUWbA", // 🔑 Replace with your actual key
     amount: product.price * 100,
     currency: "INR",
     name: "Yamaki Foods",
