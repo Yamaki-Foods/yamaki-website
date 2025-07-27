@@ -246,6 +246,18 @@
     drawer.classList.toggle('hidden');
   }
 </script>
+<div id="shipping-form" class="hidden">
+  <h3>Enter Shipping Details</h3>
+  <input type="text" id="ship-name" placeholder="Full Name" />
+  <input type="email" id="ship-email" placeholder="Email Address" />
+  <input type="tel" id="ship-phone" placeholder="Phone Number" />
+  <textarea id="ship-address" placeholder="Full Address"></textarea>
+  <input type="text" id="ship-state" placeholder="State" />
+  <input type="text" id="ship-country" placeholder="Country" />
+  <input type="text" id="ship-pincode" placeholder="Pincode" />
+  <button onclick="submitShippingDetails()">Proceed to Pay</button>
+  <button onclick="toggleShippingForm()" style="background:#ccc; color:#000;">Cancel</button>
+</div>
 
 </body>
 </html>
