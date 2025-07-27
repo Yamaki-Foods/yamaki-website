@@ -33,6 +33,16 @@
     <li><a href="../blog/index.html">Blog</a></li>
   </ul>
 </nav>
+<!-- Cart Icon (top right) -->
+<div id="cart-button" onclick="toggleCart()">🛒 <span id="cart-count">0</span></div>
+
+<!-- Slide-in Cart Drawer -->
+<div id="cart-drawer" class="hidden">
+  <h3>Your Cart</h3>
+  <div class="cart-items"></div>
+  <p><strong>Total:</strong> ₹<span id="cart-total">0</span></p>
+  <button onclick="checkout()">Checkout</button>
+</div>
 
 
   <div class="page">
@@ -49,6 +59,12 @@
         <h1>Instant Konjac Noodles</h1>
         <p>Deliciously springy, our Konjac Noodles offer all the fun of noodles without the carbs. A perfect fit for keto, diabetic, and calorie-conscious meal plans.</p>
         <a class="cta-btn" href="https://wa.me/919717912200?text=Hi%2C%20I%20am%20interested%20in%20Instant%20Konjac%20Noodles%20from%20Yamaki%20Foods.%20Please%20share%20price%20and%20MOQ." target="_blank">Enquire on WhatsApp</a>
+        <div style="margin: 1em 0;">
+        <label for="product-qty">Quantity:</label>
+        <input id="product-qty" type="number" value="1" min="1" style="width: 60px;" />
+        <button class="cta-btn" onclick="triggerBuyNow()">Buy Now</button>
+        </div>
+
         <div class="info-box">
           <h3>How to Use</h3>
           <ul>
@@ -315,14 +331,50 @@ function submitShippingDetails() {
     alert("Something went wrong. Amount is 0.");
     return;
   }
-
   const options = {
     key: "rzp_live_wEC5gALdAnUWbA",
     amount: amount * 100,
     currency: "INR",
     name: "Yamaki Foods",
     description: isFullCartCheckout ? "Full Cart Checkout" : pendingBuyNowProduct.name,
-    image: "https:
+    image: "https://yamakifoods.com/images/favicon.jpg",
+    handler: function (response) {
+      alert("Payment successful! Razorpay ID: " + response.razorpay_payment_id);
+      if (!isFullCartCheckout) {
+        pendingBuyNowProduct = null;
+      } else {
+        cart = [];
+        localStorage.removeItem("cart");
+        renderCart();
+      }
+    },
+    prefill: {
+      name: name,
+      email: email,
+      contact: phone
+    },
+    notes: {
+      address: customerNotes
+    },
+    theme: {
+      color: "#2e7d32"
+    }
+  };
 
+  const rzp = new Razorpay(options);
+  rzp.open();
+}
+  </script>
+        <div id="shipping-form" class="hidden">
+  <input id="ship-name" placeholder="Full Name" required><br>
+  <input id="ship-email" placeholder="Email" required><br>
+  <input id="ship-phone" placeholder="Phone" required><br>
+  <textarea id="ship-address" placeholder="Address" required></textarea><br>
+  <input id="ship-country" placeholder="Country" required><br>
+  <input id="ship-state" placeholder="State" required><br>
+  <input id="ship-pincode" placeholder="Pincode" required><br>
+  <button onclick="submitShippingDetails()">Pay Now</button>
+  <button onclick="toggleShippingForm()">Cancel</button>
+</div>
 </body>
 </html>
