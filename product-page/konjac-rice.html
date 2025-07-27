@@ -33,15 +33,17 @@
     <li><a href="../blog/index.html">Blog</a></li>
   </ul>
 </nav>
-  <div id="cart-button" onclick="toggleCart()">
-  🛒 <span id="cart-count">0</span>
-</div>
+<!-- Cart Icon (top right) -->
+<div id="cart-button" onclick="toggleCart()">🛒 <span id="cart-count">0</span></div>
 
+<!-- Slide-in Cart Drawer -->
 <div id="cart-drawer" class="hidden">
+  <h3>Your Cart</h3>
   <div class="cart-items"></div>
-  <p>Total: ₹<span id="cart-total">0</span></p>
+  <p><strong>Total:</strong> ₹<span id="cart-total">0</span></p>
   <button onclick="checkout()">Checkout</button>
 </div>
+
 
 
 
@@ -59,6 +61,12 @@
         <h1>Instant Konjac Rice</h1>
         <p>Soft, light, and satisfying – our Konjac Rice is the perfect low-carb substitute for traditional rice. Suitable for diabetic, keto, and calorie-restricted diets.</p>
         <a class="cta-btn" href="https://wa.me/919717912200?text=Hi%2C%20I%20am%20interested%20in%20Instant%20Konjac%20Rice%20from%20Yamaki%20Foods.%20Please%20share%20price%20and%20MOQ." target="_blank">Enquire on WhatsApp</a>
+        <div style="margin: 1em 0;">
+        <label for="product-qty">Quantity:</label>
+        <input id="product-qty" type="number" value="1" min="1" style="width: 60px;" />
+        <button class="cta-btn" onclick="triggerBuyNow()">Buy Now</button>
+        </div>
+
         <div class="info-box">
           <h3>How to Use</h3>
           <ul>
