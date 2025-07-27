@@ -143,3 +143,54 @@ function renderCart() {
   totalElem.textContent = total;
   countElem.textContent = count;
 }
+let pendingBuyNowProduct = null;
+
+function toggleShippingForm() {
+  const form = document.getElementById("shipping-form");
+  form.classList.toggle("hidden");
+}
+
+function submitShippingDetails() {
+  const name = document.getElementById("ship-name").value;
+  const email = document.getElementById("ship-email").value;
+  const phone = document.getElementById("ship-phone").value;
+  const address = document.getElementById("ship-address").value;
+  const state = document.getElementById("ship-state").value;
+  const country = document.getElementById("ship-country").value;
+  const pincode = document.getElementById("ship-pincode").value;
+
+  if (!name || !email || !phone || !address || !state || !country || !pincode) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  toggleShippingForm(); // Hide form
+
+  // Now proceed to Razorpay with data
+  const options = {
+    key: "rzp_live_wEC5gALdAnUWbA",
+    amount: pendingBuyNowProduct.price * 100,
+    currency: "INR",
+    name: "Yamaki Foods",
+    description: pendingBuyNowProduct.name,
+    image: "https://yamakifoods.com/images/favicon.jpg",
+    handler: function (response) {
+      alert(`Payment successful for ${pendingBuyNowProduct.name}!\nRazorpay ID: ${response.razorpay_payment_id}`);
+    },
+    prefill: {
+      name: name,
+      email: email,
+      contact: phone
+    },
+    notes: {
+      address: `${address}, ${state}, ${country} - ${pincode}`
+    },
+    theme: {
+      color: "#2e7d32"
+    }
+  };
+
+  const rzp = new Razorpay(options);
+  rzp.open();
+}
+
