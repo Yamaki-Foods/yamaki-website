@@ -5,6 +5,16 @@ let pendingBuyNowProduct = null;
 let isFullCartCheckout = false;
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Redirect product image/title to individual product page
+  document.querySelectorAll(".product-card .image-wrapper, .product-card p").forEach((el) => {
+    el.addEventListener("click", () => {
+      const card = el.closest(".product-card");
+      if (card && card.dataset.id) {
+        window.location.href = `${card.dataset.id}.html`;
+      }
+    });
+  });
+
   // Bind Add to Cart buttons
   document.querySelectorAll(".add-to-cart").forEach((btn) => {
     btn.addEventListener("click", () => {
