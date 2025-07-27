@@ -1,6 +1,75 @@
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-// Wait for DOM to be ready
+window.toggleCart = function () {
+  const drawer = document.getElementById("cart-drawer");
+  if (drawer) {
+    drawer.classList.toggle("hidden");
+  }
+};
+
+window.removeItem = function (index) {
+  cart.splice(index, 1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
+};
+
+window.checkout = function () {
+  const totalAmount = cart.reduce((sum, p) => sum + p.price * p.qty, 0);
+  if (totalAmount === 0) return alert("Your cart is empty.");
+
+  const options = {
+    key: "rzp_live_wEC5gALdAnUWbA", // Replace with your actual Razorpay key
+    amount: totalAmount * 100,
+    currency: "INR",
+    name: "Yamaki Foods",
+    description: "Order Payment",
+    image: "https://yamakifoods.com/images/favicon.jpg",
+    handler: function (response) {
+      alert("Payment successful! Razorpay ID: " + response.razorpay_payment_id);
+      cart = [];
+      localStorage.removeItem("cart");
+      renderCart();
+      toggleCart();
+    },
+    prefill: {
+      name: "",
+      email: "",
+      contact: ""
+    },
+    theme: {
+      color: "#2e7d32"
+    }
+  };
+
+  const rzp = new Razorpay(options);
+  rzp.open();
+};
+
+window.triggerRazorpay = function (product) {
+  const options = {
+    key: "rzp_live_wEC5gALdAnUWbA",
+    amount: product.price * 100,
+    currency: "INR",
+    name: "Yamaki Foods",
+    description: product.name,
+    image: "https://yamakifoods.com/images/favicon.jpg",
+    handler: function (response) {
+      alert(`Payment successful for ${product.name}! Razorpay ID: ` + response.razorpay_payment_id);
+    },
+    prefill: {
+      name: "",
+      email: "",
+      contact: ""
+    },
+    theme: {
+      color: "#2e7d32"
+    }
+  };
+
+  const rzp = new Razorpay(options);
+  rzp.open();
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   // Add-to-cart buttons
   document.querySelectorAll(".add-to-cart").forEach((btn) => {
@@ -20,13 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Cart icon click toggle
-  const cartIcon = document.querySelector(".cart-icon");
-  if (cartIcon) {
-    cartIcon.addEventListener("click", toggleCart);
-  }
-
-  // Render cart initially
   renderCart();
 });
 
@@ -36,7 +98,7 @@ function getProductFromCard(card) {
     name: card.dataset.name,
     price: parseInt(card.dataset.price),
     img: card.dataset.img,
-    qty: 1,
+    qty: 1
   };
 }
 
@@ -69,87 +131,15 @@ function renderCart() {
     count += item.qty;
 
     container.innerHTML += `
-      <div style="margin-bottom: 1em;">
+      <div class="item">
         <strong>${item.name}</strong><br>
         ₹${item.price} × ${item.qty} = ₹${subtotal}
         <br>
-        <button onclick="removeItem(${index})" style="margin-top:5px;font-size:0.8em;color:#c00;">
-          Remove
-        </button>
+        <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
       </div>
     `;
   });
 
   totalElem.textContent = total;
   countElem.textContent = count;
-}
-
-function removeItem(index) {
-  cart.splice(index, 1);
-  localStorage.setItem("cart", JSON.stringify(cart));
-  renderCart();
-}
-
-function toggleCart() {
-  const drawer = document.getElementById("cart-drawer");
-  if (!drawer) return;
-
-  drawer.classList.toggle("visible");
-}
-
-function checkout() {
-  const totalAmount = cart.reduce((sum, p) => sum + p.price * p.qty, 0);
-  if (totalAmount === 0) return alert("Your cart is empty.");
-
-  const options = {
-    key: "rzp_live_wEC5gALdAnUWbA", // 🔑 Replace with your actual Razorpay key
-    amount: totalAmount * 100,
-    currency: "INR",
-    name: "Yamaki Foods",
-    description: "Order Payment",
-    image: "https://yamakifoods.com/images/favicon.jpg",
-    handler: function (response) {
-      alert("Payment successful! Razorpay ID: " + response.razorpay_payment_id);
-      cart = [];
-      localStorage.removeItem("cart");
-      renderCart();
-      toggleCart();
-    },
-    prefill: {
-      name: "",
-      email: "",
-      contact: ""
-    },
-    theme: {
-      color: "#2e7d32"
-    }
-  };
-
-  const rzp = new Razorpay(options);
-  rzp.open();
-}
-
-function triggerRazorpay(product) {
-  const options = {
-    key: "rzp_live_wEC5gALdAnUWbA", // 🔑 Replace with your actual Razorpay key
-    amount: product.price * 100,
-    currency: "INR",
-    name: "Yamaki Foods",
-    description: product.name,
-    image: "https://yamakifoods.com/images/favicon.jpg",
-    handler: function (response) {
-      alert(`Payment successful for ${product.name}! Razorpay ID: ` + response.razorpay_payment_id);
-    },
-    prefill: {
-      name: "",
-      email: "",
-      contact: ""
-    },
-    theme: {
-      color: "#2e7d32"
-    }
-  };
-
-  const rzp = new Razorpay(options);
-  rzp.open();
 }
