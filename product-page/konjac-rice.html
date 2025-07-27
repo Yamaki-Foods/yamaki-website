@@ -248,29 +248,17 @@ function triggerBuyNow() {
   const qty = parseInt(document.getElementById("product-qty").value);
   if (!qty || qty < 1) return alert("Please enter a valid quantity.");
 
-  const product = {
+  // Store product details temporarily
+  pendingBuyNowProduct = {
     id: "konjac-rice",
     name: "Konjac Rice",
     price: 199,
     qty: qty
   };
 
-  const options = {
-    key: "rzp_live_wEC5gALdAnUWbA",
-    amount: product.price * qty * 100,
-    currency: "INR",
-    name: "Yamaki Foods",
-    description: product.name,
-    image: "https://yamakifoods.com/images/favicon.jpg",
-    handler: function (response) {
-      alert("Payment successful for " + product.name + "!\nRazorpay ID: " + response.razorpay_payment_id);
-    },
-    theme: { color: "#2e7d32" }
-  };
-
-  const rzp = new Razorpay(options);
-  rzp.open();
+  toggleShippingForm(); // Show shipping form first
 }
+
 
 renderCart();
 </script>
