@@ -1,6 +1,8 @@
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 document.getElementById("cart-count").textContent = cart.reduce((sum, p) => sum + p.qty, 0);
+
 let pendingBuyNowProduct = null;
+let isFullCartCheckout = false;
 
 document.addEventListener("DOMContentLoaded", () => {
   // Bind Add to Cart buttons
@@ -12,27 +14,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Bind Buy Now buttons
-  document.querySelectorAll(".buy-now").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const card = btn.closest(".product-card");
-      const product = getProductFromCard(card);
-      pendingBuyNowProduct = product;
-      toggleShippingForm(); // show popup to collect shipping info
-    });
-  });
-
   renderCart();
 });
 
-// 🧾 Get product data from card
+// 🔍 Get product data from card
 function getProductFromCard(card) {
+  const qtyInput = card.querySelector(".quantity-input");
+  const qty = parseInt(qtyInput?.value || "1");
   return {
     id: card.dataset.id,
     name: card.dataset.name,
     price: parseInt(card.dataset.price),
     img: card.dataset.img,
-    qty: 1
+    qty: qty
   };
 }
 
@@ -40,7 +34,7 @@ function getProductFromCard(card) {
 function addToCart(item) {
   const existing = cart.find((p) => p.id === item.id);
   if (existing) {
-    existing.qty += 1;
+    existing.qty += item.qty;
   } else {
     cart.push(item);
   }
@@ -49,7 +43,7 @@ function addToCart(item) {
   alert(`${item.name} added to cart!`);
 }
 
-// 🛍️ Render Cart
+// 🛒 Render Cart
 function renderCart() {
   const container = document.querySelector(".cart-items");
   const totalElem = document.getElementById("cart-total");
@@ -69,8 +63,7 @@ function renderCart() {
     container.innerHTML += `
       <div class="item">
         <strong>${item.name}</strong><br>
-        ₹${item.price} × ${item.qty} = ₹${subtotal}
-        <br>
+        ₹${item.price} × ${item.qty} = ₹${subtotal}<br>
         <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
       </div>
     `;
@@ -80,26 +73,34 @@ function renderCart() {
   countElem.textContent = count;
 }
 
-// 🗑️ Remove Item
+// ❌ Remove item from cart
 window.removeItem = function (index) {
   cart.splice(index, 1);
   localStorage.setItem("cart", JSON.stringify(cart));
   renderCart();
 };
 
-// 🛒 Toggle Cart Drawer
+// 📦 Prepare checkout for full cart
+window.prepareCartCheckout = function () {
+  if (cart.length === 0) return alert("Your cart is empty.");
+  isFullCartCheckout = true;
+  pendingBuyNowProduct = null;
+  toggleShippingForm();
+};
+
+// 🧾 Toggle Cart Drawer
 window.toggleCart = function () {
   const drawer = document.getElementById("cart-drawer");
   if (drawer) drawer.classList.toggle("hidden");
 };
 
-// 🚪 Toggle Shipping Form Popup
+// 🧾 Toggle Shipping Form
 function toggleShippingForm() {
   const form = document.getElementById("shipping-form");
   if (form) form.classList.toggle("hidden");
 }
 
-// ✅ Buy Now → Show Razorpay after getting customer details
+// 🚚 Final Submit Shipping → Razorpay
 function submitShippingDetails() {
   const name = document.getElementById("ship-name").value;
   const email = document.getElementById("ship-email").value;
@@ -116,15 +117,31 @@ function submitShippingDetails() {
 
   toggleShippingForm();
 
+  const customerNotes = `${address}, ${state}, ${country} - ${pincode}`;
+  const amount = isFullCartCheckout
+    ? cart.reduce((sum, p) => sum + p.price * p.qty, 0)
+    : pendingBuyNowProduct?.price || 0;
+
+  if (amount === 0) {
+    alert("Something went wrong. Amount is 0.");
+    return;
+  }
+
   const options = {
     key: "rzp_live_wEC5gALdAnUWbA",
-    amount: pendingBuyNowProduct.price * 100,
+    amount: amount * 100,
     currency: "INR",
     name: "Yamaki Foods",
-    description: pendingBuyNowProduct.name,
+    description: isFullCartCheckout ? "Full Cart Checkout" : pendingBuyNowProduct.name,
     image: "https://yamakifoods.com/images/favicon.jpg",
     handler: function (response) {
-      alert(`Payment successful for ${pendingBuyNowProduct.name}!\nRazorpay ID: ${response.razorpay_payment_id}`);
+      alert(`Payment successful! Razorpay ID: ${response.razorpay_payment_id}`);
+      if (isFullCartCheckout) {
+        cart = [];
+        localStorage.removeItem("cart");
+        renderCart();
+        toggleCart();
+      }
     },
     prefill: {
       name: name,
@@ -132,7 +149,7 @@ function submitShippingDetails() {
       contact: phone
     },
     notes: {
-      address: `${address}, ${state}, ${country} - ${pincode}`
+      address: customerNotes
     },
     theme: {
       color: "#2e7d32"
@@ -141,41 +158,12 @@ function submitShippingDetails() {
 
   const rzp = new Razorpay(options);
   rzp.open();
+
+  // Reset
+  isFullCartCheckout = false;
+  pendingBuyNowProduct = null;
 }
 
-// 🛒 Checkout full cart
-window.checkout = function () {
-  const totalAmount = cart.reduce((sum, p) => sum + p.price * p.qty, 0);
-  if (totalAmount === 0) return alert("Your cart is empty.");
-
-  const options = {
-    key: "rzp_live_wEC5gALdAnUWbA",
-    amount: totalAmount * 100,
-    currency: "INR",
-    name: "Yamaki Foods",
-    description: "Order Payment",
-    image: "https://yamakifoods.com/images/favicon.jpg",
-    handler: function (response) {
-      alert("Payment successful! Razorpay ID: " + response.razorpay_payment_id);
-      cart = [];
-      localStorage.removeItem("cart");
-      renderCart();
-      toggleCart();
-    },
-    prefill: {
-      name: "",
-      email: "",
-      contact: ""
-    },
-    theme: {
-      color: "#2e7d32"
-    }
-  };
-
-  const rzp = new Razorpay(options);
-  rzp.open();
-};
-
-// 🔄 Expose to window so inline HTML button can call it
+// 🟢 Expose to HTML
 window.submitShippingDetails = submitShippingDetails;
 window.toggleShippingForm = toggleShippingForm;
