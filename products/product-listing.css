@@ -487,5 +487,50 @@ main {
   text-align: right;
 }
 
+#shipping-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 400px;
+  background-color: #fff;
+  padding: 2em;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  z-index: 10001;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  font-size: 0.95em;
+}
+
+#shipping-form.hidden {
+  display: none;
+}
+
+#shipping-form input,
+#shipping-form textarea {
+  width: 100%;
+  padding: 0.6em;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+}
+
+#shipping-form button {
+  background-color: #2e7d32;
+  color: white;
+  padding: 0.6em;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#shipping-form button:hover {
+  background-color: #256b27;
+}
 
 
