@@ -1,4 +1,5 @@
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
+document.getElementById("cart-count").textContent = cart.reduce((sum, p) => sum + p.qty, 0);
 let pendingBuyNowProduct = null;
 
 document.addEventListener("DOMContentLoaded", () => {
