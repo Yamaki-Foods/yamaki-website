@@ -169,6 +169,23 @@
     <a href="/terms-and-conditions.html">Terms & Conditions</a>
   </p>
 </footer>
+<!-- Shipping Form Popup -->
+<div id="shipping-form" class="cart-drawer hidden">
+  <div class="cart-header">
+    <h3>Enter Shipping Details</h3>
+    <button onclick="toggleShippingForm()">✕</button>
+  </div>
+  <div class="cart-items">
+    <input type="text" id="ship-name" placeholder="Full Name" required><br><br>
+    <input type="email" id="ship-email" placeholder="Email" required><br><br>
+    <input type="tel" id="ship-phone" placeholder="Phone Number" required><br><br>
+    <textarea id="ship-address" placeholder="Full Address" rows="3" required></textarea><br><br>
+    <input type="text" id="ship-state" placeholder="State" required><br><br>
+    <input type="text" id="ship-country" placeholder="Country" value="India" required><br><br>
+    <input type="text" id="ship-pincode" placeholder="PIN Code" required><br><br>
+    <button onclick="submitShippingDetails()">Proceed to Pay</button>
+  </div>
+</div>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
