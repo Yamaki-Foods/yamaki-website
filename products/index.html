@@ -175,7 +175,12 @@
     <h3>Enter Shipping Details</h3>
     <button onclick="toggleShippingForm()">✕</button>
   </div>
-  <div class="cart-items">
+
+  <!-- This is only for product preview (optional) -->
+  <div id="buy-now-product-preview" style="padding: 1em;"></div>
+
+  <!-- Shipping form starts here -->
+  <div class="shipping-fields" style="padding: 1em;">
     <input type="text" id="ship-name" placeholder="Full Name" required><br><br>
     <input type="email" id="ship-email" placeholder="Email" required><br><br>
     <input type="tel" id="ship-phone" placeholder="Phone Number" required><br><br>
@@ -224,51 +229,21 @@
     sortSelect.addEventListener("change", filterAndSort);
   });
 </script>
-  <!-- 🛒 CART DRAWER -->
+<!-- 🛒 CART DRAWER -->
 <div id="cart-drawer" class="cart-drawer hidden">
-
-
   <div class="cart-header">
     <h3>Your Cart</h3>
     <button onclick="toggleCart()">✕</button>
   </div>
- <div class="cart-items">
-  <div style="margin-bottom: 1em;">
-    <label for="ship-name">Name</label>
-    <input type="text" id="ship-name" placeholder="Full Name" required />
+
+  <div class="cart-items">
+    <!-- Cart items will be dynamically inserted -->
   </div>
 
-  <div style="margin-bottom: 1em;">
-    <label for="ship-email">Email</label>
-    <input type="email" id="ship-email" placeholder="Email" required />
+  <div class="cart-footer">
+    <strong>Total: ₹<span id="cart-total">0</span></strong><br><br>
+    <button onclick="proceedToShipping()">Checkout</button>
   </div>
-
-  <div style="margin-bottom: 1em;">
-    <label for="ship-phone">Phone</label>
-    <input type="tel" id="ship-phone" placeholder="Phone Number" required />
-  </div>
-
-  <div style="margin-bottom: 1em;">
-    <label for="ship-address">Address</label>
-    <textarea id="ship-address" rows="2" placeholder="Street Address" required></textarea>
-  </div>
-
-  <div style="margin-bottom: 1em;">
-    <label for="ship-state">State</label>
-    <input type="text" id="ship-state" placeholder="State" required />
-  </div>
-
-  <div style="margin-bottom: 1em;">
-    <label for="ship-country">Country</label>
-    <input type="text" id="ship-country" placeholder="Country" value="India" required />
-  </div>
-
-  <div style="margin-bottom: 1em;">
-    <label for="ship-pincode">Pincode</label>
-    <input type="text" id="ship-pincode" placeholder="Pincode" required />
-  </div>
-
-  <button onclick="submitShippingDetails()">Proceed to Pay</button>
 </div>
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
