@@ -33,6 +33,16 @@
     <li><a href="../blog/index.html">Blog</a></li>
   </ul>
 </nav>
+  <div id="cart-button" onclick="toggleCart()">
+  🛒 <span id="cart-count">0</span>
+</div>
+
+<div id="cart-drawer" class="hidden">
+  <div class="cart-items"></div>
+  <p>Total: ₹<span id="cart-total">0</span></p>
+  <button onclick="checkout()">Checkout</button>
+</div>
+
 
 
   <div class="page">
@@ -162,5 +172,100 @@
       el.classList.add('active');
     }
   </script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+document.getElementById("cart-count").textContent = cart.reduce((sum, p) => sum + p.qty, 0);
+let pendingBuyNowProduct = null;
+
+function toggleCart() {
+  document.getElementById("cart-drawer").classList.toggle("hidden");
+}
+
+function checkout() {
+  const totalAmount = cart.reduce((sum, p) => sum + p.price * p.qty, 0);
+  if (totalAmount === 0) return alert("Your cart is empty.");
+
+  const options = {
+    key: "rzp_live_wEC5gALdAnUWbA",
+    amount: totalAmount * 100,
+    currency: "INR",
+    name: "Yamaki Foods",
+    description: "Order Payment",
+    image: "https://yamakifoods.com/images/favicon.jpg",
+    handler: function (response) {
+      alert("Payment successful! Razorpay ID: " + response.razorpay_payment_id);
+      cart = [];
+      localStorage.removeItem("cart");
+      renderCart();
+      toggleCart();
+    },
+    theme: { color: "#2e7d32" }
+  };
+
+  const rzp = new Razorpay(options);
+  rzp.open();
+}
+
+function renderCart() {
+  const container = document.querySelector(".cart-items");
+  const totalElem = document.getElementById("cart-total");
+  const countElem = document.getElementById("cart-count");
+  container.innerHTML = "";
+  let total = 0, count = 0;
+
+  cart.forEach((item, index) => {
+    const subtotal = item.qty * item.price;
+    total += subtotal;
+    count += item.qty;
+    container.innerHTML += `
+      <div class="item">
+        <strong>${item.name}</strong><br>
+        ₹${item.price} × ${item.qty} = ₹${subtotal}<br>
+        <button onclick="removeItem(${index})">Remove</button>
+      </div>`;
+  });
+
+  totalElem.textContent = total;
+  countElem.textContent = count;
+}
+
+function removeItem(index) {
+  cart.splice(index, 1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
+}
+
+function triggerBuyNow() {
+  const qty = parseInt(document.getElementById("product-qty").value);
+  if (!qty || qty < 1) return alert("Please enter a valid quantity.");
+
+  const product = {
+    id: "konjac-rice",
+    name: "Konjac Rice",
+    price: 199,
+    qty: qty
+  };
+
+  const options = {
+    key: "rzp_live_wEC5gALdAnUWbA",
+    amount: product.price * qty * 100,
+    currency: "INR",
+    name: "Yamaki Foods",
+    description: product.name,
+    image: "https://yamakifoods.com/images/favicon.jpg",
+    handler: function (response) {
+      alert("Payment successful for " + product.name + "!\nRazorpay ID: " + response.razorpay_payment_id);
+    },
+    theme: { color: "#2e7d32" }
+  };
+
+  const rzp = new Razorpay(options);
+  rzp.open();
+}
+
+renderCart();
+</script>
+
 </body>
 </html>
