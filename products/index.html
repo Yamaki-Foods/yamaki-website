@@ -232,12 +232,45 @@
     <h3>Your Cart</h3>
     <button onclick="toggleCart()">✕</button>
   </div>
-  <div class="cart-items"></div>
-  <div class="cart-footer">
-    <p>Total: ₹<span id="cart-total">0</span></p>
-    <button onclick="checkout()">Checkout</button>
+ <div class="cart-items">
+  <div style="margin-bottom: 1em;">
+    <label for="ship-name">Name</label>
+    <input type="text" id="ship-name" placeholder="Full Name" required />
   </div>
+
+  <div style="margin-bottom: 1em;">
+    <label for="ship-email">Email</label>
+    <input type="email" id="ship-email" placeholder="Email" required />
+  </div>
+
+  <div style="margin-bottom: 1em;">
+    <label for="ship-phone">Phone</label>
+    <input type="tel" id="ship-phone" placeholder="Phone Number" required />
+  </div>
+
+  <div style="margin-bottom: 1em;">
+    <label for="ship-address">Address</label>
+    <textarea id="ship-address" rows="2" placeholder="Street Address" required></textarea>
+  </div>
+
+  <div style="margin-bottom: 1em;">
+    <label for="ship-state">State</label>
+    <input type="text" id="ship-state" placeholder="State" required />
+  </div>
+
+  <div style="margin-bottom: 1em;">
+    <label for="ship-country">Country</label>
+    <input type="text" id="ship-country" placeholder="Country" value="India" required />
+  </div>
+
+  <div style="margin-bottom: 1em;">
+    <label for="ship-pincode">Pincode</label>
+    <input type="text" id="ship-pincode" placeholder="Pincode" required />
+  </div>
+
+  <button onclick="submitShippingDetails()">Proceed to Pay</button>
 </div>
+
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="../scripts/cart.js"></script>
 <script>
@@ -246,18 +279,5 @@
     drawer.classList.toggle('hidden');
   }
 </script>
-<div id="shipping-form" class="hidden">
-  <h3>Enter Shipping Details</h3>
-  <input type="text" id="ship-name" placeholder="Full Name" />
-  <input type="email" id="ship-email" placeholder="Email Address" />
-  <input type="tel" id="ship-phone" placeholder="Phone Number" />
-  <textarea id="ship-address" placeholder="Full Address"></textarea>
-  <input type="text" id="ship-state" placeholder="State" />
-  <input type="text" id="ship-country" placeholder="Country" />
-  <input type="text" id="ship-pincode" placeholder="Pincode" />
-  <button onclick="submitShippingDetails()">Proceed to Pay</button>
-  <button onclick="toggleShippingForm()" style="background:#ccc; color:#000;">Cancel</button>
-</div>
-
 </body>
 </html>
