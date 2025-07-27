@@ -20,6 +20,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Toggle cart drawer
+  const cartIcon = document.querySelector(".cart-icon");
+  if (cartIcon) {
+    cartIcon.addEventListener("click", toggleCart);
+  }
+
   // Initial render
   renderCart();
 });
@@ -85,7 +91,8 @@ function removeItem(index) {
 }
 
 function toggleCart() {
-  document.getElementById("cart-drawer").classList.toggle("open");
+  const drawer = document.getElementById("cart-drawer");
+  if (drawer) drawer.classList.toggle("hidden");
 }
 
 function checkout() {
@@ -93,7 +100,7 @@ function checkout() {
   if (totalAmount === 0) return alert("Your cart is empty.");
 
   const options = {
-    key: "rzp_live_wEC5gALdAnUWbA", // 🔑 Replace with your actual key
+    key: "rzp_live_wEC5gALdAnUWbA", // 🔑 Replace with your actual Razorpay key
     amount: totalAmount * 100,
     currency: "INR",
     name: "Yamaki Foods",
@@ -122,7 +129,7 @@ function checkout() {
 
 function triggerRazorpay(product) {
   const options = {
-    key: "rzp_live_wEC5gALdAnUWbA", // 🔑 Replace with your actual key
+    key: "rzp_live_wEC5gALdAnUWbA", // 🔑 Replace with your actual Razorpay key
     amount: product.price * 100,
     currency: "INR",
     name: "Yamaki Foods",
