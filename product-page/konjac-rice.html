@@ -274,6 +274,18 @@ function triggerBuyNow() {
 
 renderCart();
 </script>
+<div id="shipping-form" class="hidden" style="padding: 1em; background: #fff; border: 1px solid #ccc; position: fixed; top: 10%; left: 50%; transform: translateX(-50%); z-index: 9999;">
+  <h3>Shipping Details</h3>
+  <input id="ship-name" placeholder="Full Name" required><br>
+  <input id="ship-email" placeholder="Email" required><br>
+  <input id="ship-phone" placeholder="Phone" required><br>
+  <textarea id="ship-address" placeholder="Address" required></textarea><br>
+  <input id="ship-country" placeholder="Country" required><br>
+  <input id="ship-state" placeholder="State" required><br>
+  <input id="ship-pincode" placeholder="Pincode" required><br>
+  <button onclick="submitShippingDetails()">Pay Now</button>
+  <button onclick="toggleShippingForm()">Cancel</button>
+</div>
 
 </body>
 </html>
