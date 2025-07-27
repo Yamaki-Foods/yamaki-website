@@ -1,8 +1,8 @@
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-// Add Event Listeners after DOM loads
+// Wait for DOM to be ready
 document.addEventListener("DOMContentLoaded", () => {
-  // Add to Cart buttons
+  // Add-to-cart buttons
   document.querySelectorAll(".add-to-cart").forEach((btn) => {
     btn.addEventListener("click", () => {
       const card = btn.closest(".product-card");
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Buy Now buttons
+  // Buy-now buttons
   document.querySelectorAll(".buy-now").forEach((btn) => {
     btn.addEventListener("click", () => {
       const card = btn.closest(".product-card");
@@ -20,13 +20,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Toggle cart drawer
+  // Cart icon click toggle
   const cartIcon = document.querySelector(".cart-icon");
   if (cartIcon) {
     cartIcon.addEventListener("click", toggleCart);
   }
 
-  // Initial render
+  // Render cart initially
   renderCart();
 });
 
@@ -92,7 +92,9 @@ function removeItem(index) {
 
 function toggleCart() {
   const drawer = document.getElementById("cart-drawer");
-  if (drawer) drawer.classList.toggle("hidden");
+  if (!drawer) return;
+
+  drawer.classList.toggle("visible");
 }
 
 function checkout() {
