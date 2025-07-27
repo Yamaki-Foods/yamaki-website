@@ -97,6 +97,22 @@ window.prepareCartCheckout = function () {
   pendingBuyNowProduct = null;
   toggleShippingForm();
 };
+// 🛍️ Prepare Buy Now Checkout (single product page)
+window.prepareBuyNowCheckout = function () {
+  const qty = parseInt(document.querySelector(".quantity-input")?.value || "1");
+
+  pendingBuyNowProduct = {
+    id: "konjac-rice",
+    name: "Konjac Rice",
+    price: 199,
+    img: "images/konjac-rice-1.jpg",
+    qty: qty
+  };
+
+  isFullCartCheckout = false;
+  toggleShippingForm();
+};
+
 
 // 🧾 Toggle Cart Drawer
 window.toggleCart = function () {
