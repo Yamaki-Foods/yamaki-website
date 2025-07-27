@@ -5,7 +5,7 @@ let pendingBuyNowProduct = null;
 let isFullCartCheckout = false;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Redirect product image/title to individual product page
+  // 🔗 Clickable product image/name → redirect to individual product page
   document.querySelectorAll(".product-card .image-wrapper, .product-card p").forEach((el) => {
     el.addEventListener("click", () => {
       const card = el.closest(".product-card");
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Bind Add to Cart buttons
+  // 🛒 Add to cart button
   document.querySelectorAll(".add-to-cart").forEach((btn) => {
     btn.addEventListener("click", () => {
       const card = btn.closest(".product-card");
@@ -40,7 +40,7 @@ function getProductFromCard(card) {
   };
 }
 
-// ➕ Add to cart
+// ➕ Add item to cart
 function addToCart(item) {
   const existing = cart.find((p) => p.id === item.id);
   if (existing) {
@@ -53,7 +53,7 @@ function addToCart(item) {
   alert(`${item.name} added to cart!`);
 }
 
-// 🛒 Render Cart
+// 🛒 Render Cart UI
 function renderCart() {
   const container = document.querySelector(".cart-items");
   const totalElem = document.getElementById("cart-total");
@@ -62,44 +62,43 @@ function renderCart() {
   if (!container || !totalElem || !countElem) return;
 
   container.innerHTML = "";
-  let total = 0;
-  let count = 0;
+  let total = 0, count = 0;
 
   cart.forEach((item, index) => {
     const subtotal = item.qty * item.price;
     total += subtotal;
     count += item.qty;
-
     container.innerHTML += `
       <div class="item">
         <strong>${item.name}</strong><br>
         ₹${item.price} × ${item.qty} = ₹${subtotal}<br>
         <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
-      </div>
-    `;
+      </div>`;
   });
 
   totalElem.textContent = total;
   countElem.textContent = count;
 }
 
-// ❌ Remove item from cart
+// ❌ Remove item
 window.removeItem = function (index) {
   cart.splice(index, 1);
   localStorage.setItem("cart", JSON.stringify(cart));
   renderCart();
 };
 
-// 📦 Prepare checkout for full cart
+// 🛍️ Full cart checkout
 window.prepareCartCheckout = function () {
   if (cart.length === 0) return alert("Your cart is empty.");
   isFullCartCheckout = true;
   pendingBuyNowProduct = null;
   toggleShippingForm();
 };
-// 🛍️ Prepare Buy Now Checkout (single product page)
+
+// 🛒 Buy Now checkout from product page
 window.prepareBuyNowCheckout = function () {
-  const qty = parseInt(document.querySelector(".quantity-input")?.value || "1");
+  const qtyInput = document.querySelector(".quantity-input, #product-qty");
+  const qty = parseInt(qtyInput?.value || "1");
 
   pendingBuyNowProduct = {
     id: "konjac-rice",
@@ -113,20 +112,29 @@ window.prepareBuyNowCheckout = function () {
   toggleShippingForm();
 };
 
-
-// 🧾 Toggle Cart Drawer
+// 🧾 Toggle cart drawer
 window.toggleCart = function () {
   const drawer = document.getElementById("cart-drawer");
   if (drawer) drawer.classList.toggle("hidden");
 };
 
-// 🧾 Toggle Shipping Form
+// 🚚 Show/hide shipping form
 function toggleShippingForm() {
   const form = document.getElementById("shipping-form");
   if (form) form.classList.toggle("hidden");
+
+  // // Optionally prefill if available
+  // const saved = JSON.parse(localStorage.getItem("yamaki-customer") || "{}");
+  // document.getElementById("ship-name").value = saved.name || "";
+  // document.getElementById("ship-email").value = saved.email || "";
+  // document.getElementById("ship-phone").value = saved.phone || "";
+  // document.getElementById("ship-address").value = saved.address || "";
+  // document.getElementById("ship-state").value = saved.state || "";
+  // document.getElementById("ship-country").value = saved.country || "";
+  // document.getElementById("ship-pincode").value = saved.pincode || "";
 }
 
-// 🚚 Final Submit Shipping → Razorpay
+// 🧾 Final Razorpay trigger
 function submitShippingDetails() {
   const name = document.getElementById("ship-name").value;
   const email = document.getElementById("ship-email").value;
@@ -146,12 +154,15 @@ function submitShippingDetails() {
   const customerNotes = `${address}, ${state}, ${country} - ${pincode}`;
   const amount = isFullCartCheckout
     ? cart.reduce((sum, p) => sum + p.price * p.qty, 0)
-    : pendingBuyNowProduct?.price || 0;
+    : (pendingBuyNowProduct?.price || 0) * (pendingBuyNowProduct?.qty || 1);
 
   if (amount === 0) {
     alert("Something went wrong. Amount is 0.");
     return;
   }
+
+  // Optionally save customer info
+  // localStorage.setItem("yamaki-customer", JSON.stringify({ name, email, phone, address, state, country, pincode }));
 
   const options = {
     key: "rzp_live_wEC5gALdAnUWbA",
@@ -168,6 +179,7 @@ function submitShippingDetails() {
         renderCart();
         toggleCart();
       }
+      document.getElementById("shipping-form").reset?.();
     },
     prefill: {
       name: name,
@@ -185,11 +197,11 @@ function submitShippingDetails() {
   const rzp = new Razorpay(options);
   rzp.open();
 
-  // Reset
+  // Reset checkout state
   isFullCartCheckout = false;
   pendingBuyNowProduct = null;
 }
 
-// 🟢 Expose to HTML
+// 🔓 Expose to HTML
 window.submitShippingDetails = submitShippingDetails;
 window.toggleShippingForm = toggleShippingForm;
