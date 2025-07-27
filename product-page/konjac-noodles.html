@@ -162,5 +162,167 @@
       el.classList.add('active');
     }
   </script>
+  <div id="product-data"
+  data-id="konjac-noodles"
+  data-name="Konjac Noodles"
+  data-price="199"
+  data-img="images/konjac-noodles-1.jpg">
+</div>
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+document.getElementById("cart-count").textContent = cart.reduce((sum, p) => sum + p.qty, 0);
+
+let pendingBuyNowProduct = null;
+let isFullCartCheckout = false;
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Product card click redirects
+  document.querySelectorAll(".product-card .image-wrapper, .product-card p").forEach((el) => {
+    el.addEventListener("click", () => {
+      const card = el.closest(".product-card");
+      if (card && card.dataset.id) {
+        window.location.href = `${card.dataset.id}.html`;
+      }
+    });
+  });
+
+  // Add to cart buttons
+  document.querySelectorAll(".add-to-cart").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const card = btn.closest(".product-card");
+      const product = getProductFromCard(card);
+      addToCart(product);
+    });
+  });
+
+  renderCart();
+});
+
+function getProductFromCard(card) {
+  const qtyInput = card.querySelector(".quantity-input");
+  const qty = parseInt(qtyInput?.value || "1");
+  return {
+    id: card.dataset.id,
+    name: card.dataset.name,
+    price: parseInt(card.dataset.price),
+    img: card.dataset.img,
+    qty: qty
+  };
+}
+
+function addToCart(item) {
+  const existing = cart.find((p) => p.id === item.id);
+  if (existing) {
+    existing.qty += item.qty;
+  } else {
+    cart.push(item);
+  }
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
+  alert(`${item.name} added to cart!`);
+}
+
+function renderCart() {
+  const container = document.querySelector(".cart-items");
+  const totalElem = document.getElementById("cart-total");
+  const countElem = document.getElementById("cart-count");
+
+  if (!container || !totalElem || !countElem) return;
+
+  container.innerHTML = "";
+  let total = 0, count = 0;
+
+  cart.forEach((item, index) => {
+    const subtotal = item.qty * item.price;
+    total += subtotal;
+    count += item.qty;
+    container.innerHTML += `
+      <div class="item">
+        <strong>${item.name}</strong><br>
+        ₹${item.price} × ${item.qty} = ₹${subtotal}<br>
+        <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+      </div>`;
+  });
+
+  totalElem.textContent = total;
+  countElem.textContent = count;
+}
+
+window.removeItem = function (index) {
+  cart.splice(index, 1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
+};
+
+window.prepareCartCheckout = function () {
+  if (cart.length === 0) return alert("Your cart is empty.");
+  isFullCartCheckout = true;
+  pendingBuyNowProduct = null;
+  toggleShippingForm();
+};
+
+window.prepareBuyNowCheckout = function () {
+  const qtyInput = document.querySelector(".quantity-input, #product-qty");
+  const qty = parseInt(qtyInput?.value || "1");
+
+  const pd = document.getElementById("product-data");
+  if (!pd) return alert("Missing product data.");
+
+  pendingBuyNowProduct = {
+    id: pd.dataset.id,
+    name: pd.dataset.name,
+    price: parseInt(pd.dataset.price),
+    img: pd.dataset.img,
+    qty: qty
+  };
+
+  isFullCartCheckout = false;
+  toggleShippingForm();
+};
+
+window.toggleCart = function () {
+  const drawer = document.getElementById("cart-drawer");
+  if (drawer) drawer.classList.toggle("hidden");
+};
+
+function toggleShippingForm() {
+  const form = document.getElementById("shipping-form");
+  if (form) form.classList.toggle("hidden");
+}
+
+function submitShippingDetails() {
+  const name = document.getElementById("ship-name").value;
+  const email = document.getElementById("ship-email").value;
+  const phone = document.getElementById("ship-phone").value;
+  const address = document.getElementById("ship-address").value;
+  const state = document.getElementById("ship-state").value;
+  const country = document.getElementById("ship-country").value;
+  const pincode = document.getElementById("ship-pincode").value;
+
+  if (!name || !email || !phone || !address || !state || !country || !pincode) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  toggleShippingForm();
+
+  const customerNotes = `${address}, ${state}, ${country} - ${pincode}`;
+  const amount = isFullCartCheckout
+    ? cart.reduce((sum, p) => sum + p.price * p.qty, 0)
+    : (pendingBuyNowProduct?.price || 0) * (pendingBuyNowProduct?.qty || 1);
+
+  if (amount === 0) {
+    alert("Something went wrong. Amount is 0.");
+    return;
+  }
+
+  const options = {
+    key: "rzp_live_wEC5gALdAnUWbA",
+    amount: amount * 100,
+    currency: "INR",
+    name: "Yamaki Foods",
+    description: isFullCartCheckout ? "Full Cart Checkout" : pendingBuyNowProduct.name,
+    image: "https:
+
 </body>
 </html>
