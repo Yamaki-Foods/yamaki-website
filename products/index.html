@@ -100,6 +100,9 @@
     <li><a href="index.html">Products</a></li>
     <li><a href="../blog/index.html">Blog</a></li>
   </ul>
+  <div class="cart-icon" onclick="toggleCart()">
+  🛒 <span id="cart-count">0</span>
+</div>
 </nav>
 
 
@@ -216,8 +219,6 @@
     <button onclick="checkout()">Checkout</button>
   </div>
 </div>
-
-<a class="fixed-cta" onclick="toggleCart()">🛒 Cart</a>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="../scripts/cart.js"></script>
 
