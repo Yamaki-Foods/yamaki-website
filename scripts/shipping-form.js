@@ -1,5 +1,5 @@
 // CONFIG: Set this to your live Google Apps Script Web App URL
-const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfyc.../exec";
+const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbywep3DL_CAIMPK6HHDWDcfOt0KNqBt2BgMqB5PwvudEY8RFcyYu8A8x3NAkphE_oNM/exec";
 
 // Submit shipping data and trigger Razorpay
 function submitShippingDetails() {
