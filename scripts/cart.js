@@ -125,7 +125,10 @@ function toggleShippingForm() {
 }
 // 🔓 Expose to HTML
 window.toggleShippingForm = toggleShippingForm;
-window.submitShippingDetails = submitShippingDetails;
+window.submitShippingDetails = function () {
+  const form = document.getElementById("shipping-form-element");
+  if (form) form.requestSubmit();
+};
 
 
 
