@@ -29,61 +29,47 @@ window.submitShippingDetails = function () {
     ? `${pendingBuyNowProduct.name} (x${pendingBuyNowProduct.qty}) - ₹${pendingBuyNowProduct.price * pendingBuyNowProduct.qty}`
     : cart.map(p => `${p.name} (x${p.qty}) - ₹${p.price * p.qty}`).join(", ");
 
-  const params = new URLSearchParams({
-    name,
-    email,
-    phone,
-    address,
-    state,
-    country,
-    pincode,
-    product,
-    cartItems,
-    amount: amount.toString()
-  });
-
-  // ✅ Send data using GET (to avoid CORS from Google Script)
+  // ✅ Send JSON via POST to Google Apps Script
   fetch(GOOGLE_SHEET_WEBAPP_URL, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    name,
-    email,
-    phone,
-    address,
-    state,
-    country,
-    pincode,
-    product,
-    cartItems,
-    amount
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      name,
+      email,
+      phone,
+      address,
+      state,
+      country,
+      pincode,
+      product,
+      cartItems,
+      amount
+    })
   })
-})
-
-    .then((res) => {
-      if (!res.ok) throw new Error("Failed to save shipping data.");
-      return res.text();
-    })
-    .then(() => {
-      toggleShippingForm();
-      startRazorpayPayment({
-        name,
-        email,
-        phone,
-        address,
-        state,
-        country,
-        pincode,
-        product,
-        cartItems,
-        amount
-      });
-    })
-    .catch((err) => {
-      alert("Error submitting form: " + err.message);
+  .then((res) => {
+    if (!res.ok) throw new Error("Failed to save shipping data.");
+    return res.text();
+  })
+  .then(() => {
+    toggleShippingForm();
+    startRazorpayPayment({
+      name,
+      email,
+      phone,
+      address,
+      state,
+      country,
+      pincode,
+      product,
+      cartItems,
+      amount
     });
+  })
+  .catch((err) => {
+    alert("Error submitting form: " + err.message);
+  });
 };
 
 function startRazorpayPayment(data) {
