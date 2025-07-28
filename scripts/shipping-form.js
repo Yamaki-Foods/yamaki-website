@@ -16,13 +16,18 @@ function submitShippingDetails() {
     return;
   }
 
-  const amount = isFullCartCheckout
-    ? cart.reduce((sum, p) => sum + p.price * p.qty, 0)
-    : (pendingBuyNowProduct?.price || 0) * (pendingBuyNowProduct?.qty || 1);
+  const isBuyNow = !isFullCartCheckout;
+  const product = isBuyNow
+    ? (pendingBuyNowProduct?.name || "Buy Now")
+    : "Cart Checkout";
 
-  const product = isFullCartCheckout
-    ? "Cart Checkout"
-    : (pendingBuyNowProduct?.name || "Buy Now");
+  const amount = isBuyNow
+    ? (pendingBuyNowProduct?.price || 0) * (pendingBuyNowProduct?.qty || 1)
+    : cart.reduce((sum, p) => sum + p.price * p.qty, 0);
+
+  const cartItems = isBuyNow
+    ? `${pendingBuyNowProduct.name} (x${pendingBuyNowProduct.qty}) - ₹${pendingBuyNowProduct.price * pendingBuyNowProduct.qty}`
+    : cart.map(p => `${p.name} (x${p.qty}) - ₹${p.price * p.qty}`).join(", ");
 
   const params = new URLSearchParams({
     name,
@@ -33,10 +38,10 @@ function submitShippingDetails() {
     country,
     pincode,
     product,
+    cartItems,
     amount: amount.toString()
   });
 
-  // Send to Google Sheet using GET to bypass CORS
   fetch(`${GOOGLE_SHEET_WEBAPP_URL}?${params.toString()}`)
     .then((res) => {
       if (!res.ok) throw new Error("Failed to save shipping data.");
@@ -53,6 +58,7 @@ function submitShippingDetails() {
         country,
         pincode,
         product,
+        cartItems,
         amount
       });
     })
@@ -90,7 +96,8 @@ function startRazorpayPayment(data) {
       contact: data.phone
     },
     notes: {
-      address: `${data.address}, ${data.state}, ${data.country} - ${data.pincode}`
+      address: `${data.address}, ${data.state}, ${data.country} - ${data.pincode}`,
+      items: data.cartItems
     },
     theme: {
       color: "#2e7d32"
