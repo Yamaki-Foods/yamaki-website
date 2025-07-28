@@ -1,5 +1,5 @@
 // CONFIG: Set this to your live Google Apps Script Web App URL
-const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxZN5AMr3s4SGZexJyMA1VGYy4EQOFLMh9tKanGYlI/dev";
+const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbywep3DL_CAIMPK6HHDWDcfOt0KNqBt2BgMqB5PwvudEY8RFcyYu8A8x3NAkphE_oNM/exec";
 
 // ✅ Ensure global scope binding
 window.submitShippingDetails = function () {
