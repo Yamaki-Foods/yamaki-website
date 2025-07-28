@@ -125,10 +125,8 @@ function toggleShippingForm() {
 }
 // 🔓 Expose to HTML
 window.toggleShippingForm = toggleShippingForm;
+// ✅ Minimal bridge to trigger form submission
 window.submitShippingDetails = function () {
   const form = document.getElementById("shipping-form-element");
-  if (form) form.requestSubmit();
+  if (form) form.requestSubmit(); // triggers form submission, handled by handleFormSubmit
 };
-
-
-
