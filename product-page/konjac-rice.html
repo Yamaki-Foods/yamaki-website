@@ -172,14 +172,6 @@
       <a href="/terms-and-conditions.html">Terms & Conditions</a>
     </p>
   </footer>
-
-  <script>
-    function switchImage(el) {
-      document.getElementById('mainProductImage').src = el.src;
-      document.querySelectorAll('.thumbnail-list img').forEach(img => img.classList.remove('active'));
-      el.classList.add('active');
-    }
-  </script>
 <div id="shipping-form" class="hidden">
   <div class="form-box">
     <input id="ship-name" placeholder="Full Name" required><br>
@@ -193,6 +185,13 @@
     <button onclick="toggleShippingForm()">Cancel</button>
   </div>
 </div>
+  <script>
+    function switchImage(el) {
+      document.getElementById('mainProductImage').src = el.src;
+      document.querySelectorAll('.thumbnail-list img').forEach(img => img.classList.remove('active'));
+      el.classList.add('active');
+    }
+  </script>
 <script src="/scripts/shipping-form.js"></script>
 </body>
 </html>
