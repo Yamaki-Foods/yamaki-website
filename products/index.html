@@ -252,6 +252,15 @@
     <button onclick="prepareCartCheckout()">Checkout</button>
   </div>
 </div>
+<script>
+  let pendingBuyNowProduct = null;
+  let isFullCartCheckout = false; // You can toggle this depending on your flow
+
+  function prepareCartCheckout() {
+    isFullCartCheckout = true;
+    toggleShippingForm();
+  }
+</script>
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="../scripts/cart.js"></script>
@@ -262,5 +271,6 @@
   }
 </script>
 <script src="/scripts/shipping-form.js"></script>
+  
 </body>
 </html>
