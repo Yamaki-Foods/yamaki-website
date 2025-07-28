@@ -64,7 +64,7 @@
         <div style="margin: 1em 0;">
         <label for="product-qty">Quantity:</label>
         <input id="product-qty" type="number" value="1" min="1" style="width: 60px;" />
-        <button class="cta-btn" onclick="triggerBuyNow()">Buy Now</button>
+        <button class="cta-btn" onclick="prepareBuyNowCheckout()">Buy Now</button>
         </div>
 
         <div class="info-box">
@@ -192,6 +192,15 @@
       el.classList.add('active');
     }
   </script>
+<div id="product-data"
+  data-id="konjac-rice"
+  data-name="Konjac Rice"
+  data-price="199"
+  data-img="images/konjac-rice-1.jpg">
+</div>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="/scripts/cart.js"></script>
 <script src="/scripts/shipping-form.js"></script>
+
 </body>
 </html>
