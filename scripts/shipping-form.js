@@ -1,8 +1,8 @@
 // CONFIG: Set this to your live Google Apps Script Web App URL
 const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbywep3DL_CAIMPK6HHDWDcfOt0KNqBt2BgMqB5PwvudEY8RFcyYu8A8x3NAkphE_oNM/exec";
 
-// ✅ Ensure global scope binding
-window.submitShippingDetails = function () {
+// ✅ Global Razorpay handler — triggered after form is submitted via iframe
+window.handleFormSubmit = function () {
   const name = document.getElementById("ship-name").value;
   const email = document.getElementById("ship-email").value;
   const phone = document.getElementById("ship-phone").value;
@@ -10,11 +10,6 @@ window.submitShippingDetails = function () {
   const state = document.getElementById("ship-state").value;
   const country = document.getElementById("ship-country").value;
   const pincode = document.getElementById("ship-pincode").value;
-
-  if (!name || !email || !phone || !address || !state || !country || !pincode) {
-    alert("Please fill in all fields.");
-    return;
-  }
 
   const isBuyNow = !isFullCartCheckout;
   const product = isBuyNow
@@ -29,31 +24,8 @@ window.submitShippingDetails = function () {
     ? `${pendingBuyNowProduct.name} (x${pendingBuyNowProduct.qty}) - ₹${pendingBuyNowProduct.price * pendingBuyNowProduct.qty}`
     : cart.map(p => `${p.name} (x${p.qty}) - ₹${p.price * p.qty}`).join(", ");
 
-  // ✅ Send JSON via POST to Google Apps Script
-  fetch(GOOGLE_SHEET_WEBAPP_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      name,
-      email,
-      phone,
-      address,
-      state,
-      country,
-      pincode,
-      product,
-      cartItems,
-      amount
-    })
-  })
-  .then((res) => {
-    if (!res.ok) throw new Error("Failed to save shipping data.");
-    return res.text();
-  })
-  .then(() => {
-    toggleShippingForm();
+  // 💳 Proceed to Razorpay after a short delay
+  setTimeout(() => {
     startRazorpayPayment({
       name,
       email,
@@ -66,12 +38,10 @@ window.submitShippingDetails = function () {
       cartItems,
       amount
     });
-  })
-  .catch((err) => {
-    alert("Error submitting form: " + err.message);
-  });
+  }, 500);
 };
 
+// 💳 Razorpay Payment
 function startRazorpayPayment(data) {
   if (data.amount === 0) {
     alert("Something went wrong. Amount is 0.");
@@ -87,6 +57,7 @@ function startRazorpayPayment(data) {
     image: "https://yamakifoods.com/images/favicon.jpg",
     handler: function (response) {
       alert("Payment successful! Razorpay ID: " + response.razorpay_payment_id);
+
       if (isFullCartCheckout) {
         cart = [];
         localStorage.removeItem("cart");
@@ -94,6 +65,8 @@ function startRazorpayPayment(data) {
       } else {
         pendingBuyNowProduct = null;
       }
+
+      toggleShippingForm(); // Close the shipping form after payment
     },
     prefill: {
       name: data.name,
