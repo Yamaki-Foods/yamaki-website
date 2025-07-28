@@ -1,9 +1,8 @@
 // CONFIG: Set this to your live Google Apps Script Web App URL
-const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbywep3DL_CAIMPK6HHDWDcfOt0KNqBt2BgMqB5PwvudEY8RFcyYu8A8x3NAkphE_oNM/exec
-";
+const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbywep3DL_CAIMPK6HHDWDcfOt0KNqBt2BgMqB5PwvudEY8RFcyYu8A8x3NAkphE_oNM/exec";
 
-// Submit shipping data and trigger Razorpay
-function submitShippingDetails() {
+// ✅ Ensure global scope binding
+window.submitShippingDetails = function () {
   const name = document.getElementById("ship-name").value;
   const email = document.getElementById("ship-email").value;
   const phone = document.getElementById("ship-phone").value;
@@ -43,6 +42,7 @@ function submitShippingDetails() {
     amount: amount.toString()
   });
 
+  // ✅ Send data using GET (to avoid CORS from Google Script)
   fetch(`${GOOGLE_SHEET_WEBAPP_URL}?${params.toString()}`)
     .then((res) => {
       if (!res.ok) throw new Error("Failed to save shipping data.");
@@ -66,7 +66,7 @@ function submitShippingDetails() {
     .catch((err) => {
       alert("Error submitting form: " + err.message);
     });
-}
+};
 
 function startRazorpayPayment(data) {
   if (data.amount === 0) {
