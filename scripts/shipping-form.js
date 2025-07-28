@@ -1,7 +1,7 @@
 // CONFIG: Set this to your live Google Apps Script Web App URL
 const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbywep3DL_CAIMPK6HHDWDcfOt0KNqBt2BgMqB5PwvudEY8RFcyYu8A8x3NAkphE_oNM/exec";
 
-// ✅ Global Razorpay handler — triggered after form is submitted via iframe
+// 🔁 Unified function to handle iframe-based form submission + Razorpay
 window.handleFormSubmit = function () {
   const name = document.getElementById("ship-name").value;
   const email = document.getElementById("ship-email").value;
@@ -10,6 +10,11 @@ window.handleFormSubmit = function () {
   const state = document.getElementById("ship-state").value;
   const country = document.getElementById("ship-country").value;
   const pincode = document.getElementById("ship-pincode").value;
+
+  if (!name || !email || !phone || !address || !state || !country || !pincode) {
+    alert("Please fill in all fields.");
+    return false; // prevent form submission
+  }
 
   const isBuyNow = !isFullCartCheckout;
   const product = isBuyNow
@@ -24,8 +29,14 @@ window.handleFormSubmit = function () {
     ? `${pendingBuyNowProduct.name} (x${pendingBuyNowProduct.qty}) - ₹${pendingBuyNowProduct.price * pendingBuyNowProduct.qty}`
     : cart.map(p => `${p.name} (x${p.qty}) - ₹${p.price * p.qty}`).join(", ");
 
-  // 💳 Proceed to Razorpay after a short delay
+  // 💡 Set hidden form fields so GAS receives them
+  document.getElementById("hidden-product").value = product;
+  document.getElementById("hidden-cartItems").value = cartItems;
+  document.getElementById("hidden-amount").value = amount;
+
+  // ⏳ Delay Razorpay until form data is sent (approx 1 sec)
   setTimeout(() => {
+    toggleShippingForm();
     startRazorpayPayment({
       name,
       email,
@@ -38,10 +49,11 @@ window.handleFormSubmit = function () {
       cartItems,
       amount
     });
-  }, 500);
+  }, 1000);
+
+  return true; // ✅ allow the form to submit via iframe
 };
 
-// 💳 Razorpay Payment
 function startRazorpayPayment(data) {
   if (data.amount === 0) {
     alert("Something went wrong. Amount is 0.");
@@ -57,7 +69,6 @@ function startRazorpayPayment(data) {
     image: "https://yamakifoods.com/images/favicon.jpg",
     handler: function (response) {
       alert("Payment successful! Razorpay ID: " + response.razorpay_payment_id);
-
       if (isFullCartCheckout) {
         cart = [];
         localStorage.removeItem("cart");
@@ -65,8 +76,6 @@ function startRazorpayPayment(data) {
       } else {
         pendingBuyNowProduct = null;
       }
-
-      toggleShippingForm(); // Close the shipping form after payment
     },
     prefill: {
       name: data.name,
