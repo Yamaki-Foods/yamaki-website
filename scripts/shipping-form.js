@@ -43,7 +43,25 @@ window.submitShippingDetails = function () {
   });
 
   // ✅ Send data using GET (to avoid CORS from Google Script)
-  fetch(`${GOOGLE_SHEET_WEBAPP_URL}?${params.toString()}`)
+  fetch(GOOGLE_SHEET_WEBAPP_URL, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    name,
+    email,
+    phone,
+    address,
+    state,
+    country,
+    pincode,
+    product,
+    cartItems,
+    amount
+  })
+})
+
     .then((res) => {
       if (!res.ok) throw new Error("Failed to save shipping data.");
       return res.text();
