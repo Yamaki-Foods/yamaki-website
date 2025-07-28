@@ -122,86 +122,10 @@ window.toggleCart = function () {
 function toggleShippingForm() {
   const form = document.getElementById("shipping-form");
   if (form) form.classList.toggle("hidden");
-
-  // // Optionally prefill if available
-  // const saved = JSON.parse(localStorage.getItem("yamaki-customer") || "{}");
-  // document.getElementById("ship-name").value = saved.name || "";
-  // document.getElementById("ship-email").value = saved.email || "";
-  // document.getElementById("ship-phone").value = saved.phone || "";
-  // document.getElementById("ship-address").value = saved.address || "";
-  // document.getElementById("ship-state").value = saved.state || "";
-  // document.getElementById("ship-country").value = saved.country || "";
-  // document.getElementById("ship-pincode").value = saved.pincode || "";
 }
-
-// 🧾 Final Razorpay trigger
-function submitShippingDetails() {
-  const name = document.getElementById("ship-name").value;
-  const email = document.getElementById("ship-email").value;
-  const phone = document.getElementById("ship-phone").value;
-  const address = document.getElementById("ship-address").value;
-  const state = document.getElementById("ship-state").value;
-  const country = document.getElementById("ship-country").value;
-  const pincode = document.getElementById("ship-pincode").value;
-
-  if (!name || !email || !phone || !address || !state || !country || !pincode) {
-    alert("Please fill in all fields.");
-    return;
-  }
-
-  toggleShippingForm();
-
-  const customerNotes = `${address}, ${state}, ${country} - ${pincode}`;
-  const amount = isFullCartCheckout
-    ? cart.reduce((sum, p) => sum + p.price * p.qty, 0)
-    : (pendingBuyNowProduct?.price || 0) * (pendingBuyNowProduct?.qty || 1);
-
-  if (amount === 0) {
-    alert("Something went wrong. Amount is 0.");
-    return;
-  }
-
-  // Optionally save customer info
-  // localStorage.setItem("yamaki-customer", JSON.stringify({ name, email, phone, address, state, country, pincode }));
-
-  const options = {
-    key: "rzp_live_wEC5gALdAnUWbA",
-    amount: amount * 100,
-    currency: "INR",
-    name: "Yamaki Foods",
-    description: isFullCartCheckout ? "Full Cart Checkout" : pendingBuyNowProduct.name,
-    image: "https://yamakifoods.com/images/favicon.jpg",
-    handler: function (response) {
-      alert(`Payment successful! Razorpay ID: ${response.razorpay_payment_id}`);
-      if (isFullCartCheckout) {
-        cart = [];
-        localStorage.removeItem("cart");
-        renderCart();
-        toggleCart();
-      }
-      document.getElementById("shipping-form").reset?.();
-    },
-    prefill: {
-      name: name,
-      email: email,
-      contact: phone
-    },
-    notes: {
-      address: customerNotes
-    },
-    theme: {
-      color: "#2e7d32"
-    }
-  };
-
-  const rzp = new Razorpay(options);
-  rzp.open();
-
-  // Reset checkout state
-  isFullCartCheckout = false;
-  pendingBuyNowProduct = null;
-}
-
 // 🔓 Expose to HTML
-window.submitShippingDetails = submitShippingDetails;
 window.toggleShippingForm = toggleShippingForm;
+window.submitShippingDetails = submitShippingDetails;
+
+
+
