@@ -187,16 +187,31 @@
   <div id="buy-now-product-preview" style="padding: 1em;"></div>
 
   <!-- Shipping form starts here -->
-  <div class="shipping-fields" style="padding: 1em;">
-    <input type="text" id="ship-name" placeholder="Full Name" required><br><br>
-    <input type="email" id="ship-email" placeholder="Email" required><br><br>
-    <input type="tel" id="ship-phone" placeholder="Phone Number" required><br><br>
-    <textarea id="ship-address" placeholder="Full Address" rows="3" required></textarea><br><br>
-    <input type="text" id="ship-state" placeholder="State" required><br><br>
-    <input type="text" id="ship-country" placeholder="Country" value="India" required><br><br>
-    <input type="text" id="ship-pincode" placeholder="PIN Code" required><br><br>
-    <button onclick="submitShippingDetails()">Proceed to Pay</button>
-  </div>
+<iframe name="hidden_iframe" style="display: none;"></iframe>
+
+<form id="shipping-form-element"
+      action="https://script.google.com/macros/s/AKfycbywep3DL_CAIMPK6HHDWDcfOt0KNqBt2BgMqB5PwvudEY8RFcyYu8A8x3NAkphE_oNM/exec"
+      method="GET"
+      target="hidden_iframe"
+      onsubmit="handleFormSubmit()"
+      style="padding: 1em;">
+
+  <input type="text" name="name" id="ship-name" placeholder="Full Name" required><br><br>
+  <input type="email" name="email" id="ship-email" placeholder="Email" required><br><br>
+  <input type="tel" name="phone" id="ship-phone" placeholder="Phone Number" required><br><br>
+  <textarea name="address" id="ship-address" placeholder="Full Address" rows="3" required></textarea><br><br>
+  <input type="text" name="state" id="ship-state" placeholder="State" required><br><br>
+  <input type="text" name="country" id="ship-country" placeholder="Country" value="India" required><br><br>
+  <input type="text" name="pincode" id="ship-pincode" placeholder="PIN Code" required><br><br>
+
+  <!-- Hidden fields for product/cart -->
+  <input type="hidden" name="product" id="hidden-product" />
+  <input type="hidden" name="cartItems" id="hidden-cartItems" />
+  <input type="hidden" name="amount" id="hidden-amount" />
+
+  <button type="submit">Proceed to Pay</button>
+</form>
+
 </div>
 
 <script>
