@@ -61,7 +61,7 @@ function startRazorpayPayment(data) {
   }
 
   const options = {
-    key: "rzp_live_wEC5gALdAnUWbA",
+    key: "",
     amount: data.amount * 100,
     currency: "INR",
     name: "Yamaki Foods",
